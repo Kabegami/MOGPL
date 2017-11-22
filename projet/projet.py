@@ -2,9 +2,33 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+import os
 
 #variable global
 cpt = 0
+debug = False
+
+def silent(function):
+    """ fonction wraper qui empeche les functions avec @silent de print si la variable global debug est à False, si debug est à True les fonctions s'affichent normalement """
+    def stop_print(*args):
+        """ prevent a function to print """
+        global debug
+        if debug == True:
+            if not args:
+                res = function()
+            else:
+                res = function(*args)
+            return res
+        else:
+            sys.stdout = open(os.devnull, "w")
+            if not args:
+                res = function()
+            else:
+                res = function(*args)
+            sys.stdout = sys.__stdout__
+            return res
+    return stop_print
 
 def check_color_in(j, line, color):
     """ j : int plus grandes cases, lines : array, color : int {blanc : 0, noir = 1, indeter = -1}"""
@@ -26,6 +50,7 @@ def T(j, l, S):
     if ( j > (sl - 1)):
         return (T(j-sl-1, l-1,S) or T(j-1, l, S))
 
+@silent
 def possible_block(j, l, line):
     for i in range(0,l):
         print('case : {}'.format(j -i))
@@ -39,6 +64,7 @@ def possible_block(j, l, line):
         return False
     return True
 
+@silent
 def T2(j, l, S, line):
     if l == -1:
         return True
@@ -67,9 +93,10 @@ def T2(j, l, S, line):
         print('non determiner')
         #Quand on a pas de bloc forcement vrai.... du coup on peut toujours placer un bloc sur une case indeterminer
         if not(possible_block(j, sl, line)):
-               return T2(j-1, l, S,line)
+            return T2(j-1, l, S,line)
            
         b1 = T2(j-sl-1, l-1,S, line)
+        #Pourquoi ce b1 s'active en mode silent ???
         print('b1 : ', b1)
         return b1
 #        b2 = T2(j-1, l, S,line)
@@ -103,6 +130,7 @@ def read_file(fname):
     Mat = np.zeros((d1,d2)) - np.ones((d1,d2))
     return l, col, Mat
 
+@silent
 def sp():
     """ print pour les Assert , attention cpt est une liste ! """
     global cpt
@@ -111,13 +139,14 @@ def sp():
     print('====================================================')
     cpt += 1
     
-
+@silent
 def test_T():
     assert(T(10, 1, [5,2]) == True)
     assert(T(7, 1, [5,2]) == True)
     assert(T(6, 1, [5,2]) == False)
     assert(T(3, 0, [4]) == True)
 
+@silent
 def test_T2():
     global cpt
     e1 = np.array([1,1,1,-1,-1])
@@ -134,6 +163,7 @@ def test_T2():
     sp()
     assert(T2(4,0,[3],e4) == False)
 
+@silent
 def test_possible_block():
     a1 = [-1,-1,-1,-1,-1]
     sl1 = 5
