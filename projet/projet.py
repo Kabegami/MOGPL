@@ -3,6 +3,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#variable global
+cpt = 0
+
 def check_color_in(j, line, color):
     """ j : int plus grandes cases, lines : array, color : int {blanc : 0, noir = 1, indeter = -1}"""
     for i in range(0, j+1):
@@ -23,6 +26,19 @@ def T(j, l, S):
     if ( j > (sl - 1)):
         return (T(j-sl-1, l-1,S) or T(j-1, l, S))
 
+def possible_block(j, l, line):
+    for i in range(0,l):
+        print('case : {}'.format(j -i))
+        if line[j-i] == 0:
+            return False
+        if j - i < 0:
+            return False
+    #dernier car
+    print('derniere case apres le bloc : ', j - i - 1)
+    if line[j - i - 1] == 1:
+        return False
+    return True
+
 def T2(j, l, S, line):
     if l == -1:
         return True
@@ -41,13 +57,7 @@ def T2(j, l, S, line):
         #cas noir
         print('color : ', line[j])
         if line[j] == 1:
-            #il faut verifier qu'il n'a pas de voisin et que la serie fait la bonne taille et finie pas un blanc ou non colorié
-            for i in range(1,l):
-                if line[j-i] == 0:
-                    return False
-            #dernier car
-            print('derniere case apres le bloc : ', i)
-            if line[j - i - 1] != 1:
+            if not(possible_block(j, sl, line)):
                 return False
             return T2(j-sl-1, l-1,S, line)
         #cas blanc
@@ -55,11 +65,16 @@ def T2(j, l, S, line):
             return T2(j-1, l, S,line)
         #cas non determiner
         print('non determiner')
+        #Quand on a pas de bloc forcement vrai.... du coup on peut toujours placer un bloc sur une case indeterminer
+        if not(possible_block(j, sl, line)):
+               return T2(j-1, l, S,line)
+           
         b1 = T2(j-sl-1, l-1,S, line)
         print('b1 : ', b1)
-        b2 = T2(j-1, l, S,line)
-        print('b2 : ', b2)
-        return b1 or b2
+        return b1
+#        b2 = T2(j-1, l, S,line)
+#        print('b2 : ', b2)
+#        return b1 or b2
             
     
 def read_file(fname):
@@ -88,6 +103,15 @@ def read_file(fname):
     Mat = np.zeros((d1,d2)) - np.ones((d1,d2))
     return l, col, Mat
 
+def sp():
+    """ print pour les Assert , attention cpt est une liste ! """
+    global cpt
+    print('====================================================')
+    print('                      TEST {}                       '.format(cpt))
+    print('====================================================')
+    cpt += 1
+    
+
 def test_T():
     assert(T(10, 1, [5,2]) == True)
     assert(T(7, 1, [5,2]) == True)
@@ -95,23 +119,37 @@ def test_T():
     assert(T(3, 0, [4]) == True)
 
 def test_T2():
+    global cpt
     e1 = np.array([1,1,1,-1,-1])
     e2 = np.array([1,-1,-1,-1,-1])
     e3 = np.array([1,-1,0,-1,-1])
     e4 = np.array([1,0,-1,-1,0,-1])
-    print('Example 1')
+    cpt = 0
+    sp()
     assert(T2(4, 0, [3], e1) == True)
-    print('Example 2')
+    sp()
     assert(T2(4, 0, [3], e2) == True)
-    print('Example 3')
+    sp()
     assert(T2(4,0,[3],e3) == False)
-    print('Example 4')
+    sp()
     assert(T2(4,0,[3],e4) == False)
+
+def test_possible_block():
+    a1 = [-1,-1,-1,-1,-1]
+    sl1 = 5
+    a2 = [-1, -1, 0, -1, -1]
     
+    assert(possible_block(4,sl1, a1) == True)
+    assert(possible_block(3, sl1, a1) == False)
+    assert(possible_block(0, sl1, a1) == False)
+
+    assert(possible_block(4,sl1, a2) == False)
+    assert(possible_block(3, sl1, a2) == False)
+    assert(possible_block(0, sl1, a2) == False)
     
 
 def draw(Matrice):
-    plt.imshow(Matrice, cmap='binary', interpolation=None)
+    plt.imshow(Matrice, cmap='binary', interpolation='nearest')
     plt.colorbar()
     plt.show()
     
@@ -119,6 +157,7 @@ def draw(Matrice):
 
 S = [5,2]
 v = T(6, len(S)-1, S)
+test_possible_block()
 test_T()
 test_T2()
 print('v : ', v)
