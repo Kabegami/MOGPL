@@ -64,7 +64,8 @@ def T2(j, l, S, line,dico):
         if j == 0:
             dico[key] = True
             return True
-        return T2(j-1,l,S,line,dico)
+        dico[key] = T2(j-1,l,S,line,dico)
+        return dico[key]
     sl = S[l]
     if sl == 0:
         b =  check_color_in(j, line, 1)
