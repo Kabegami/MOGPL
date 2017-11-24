@@ -11,17 +11,24 @@ def silent(function):
         """ prevent a function to print """
         global debug
         if debug == True:
+            #print('appel avec debuf == True')
             if not args:
                 res = function()
             else:
                 res = function(*args)
             return res
         else:
+            #print('appel avec debug == False')
+            old = sys.stdout
             sys.stdout = open(os.devnull, "w")
             if not args:
                 res = function()
             else:
                 res = function(*args)
-            sys.stdout = sys.__stdout__
+            sys.stdout = old
             return res
     return stop_print
+
+def set_debug(b):
+    global debug
+    debug = b
