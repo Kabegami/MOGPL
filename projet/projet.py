@@ -2,12 +2,12 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
-import os
+#import test
+from wrapper import *
 
 #variable global
 cpt = 0
-debug = False
+debug = True
 
 def silent(function):
     """ fonction wraper qui empeche les functions avec @silent de print si la variable global debug est à False, si debug est à True les fonctions s'affichent normalement """
@@ -30,6 +30,7 @@ def silent(function):
             return res
     return stop_print
 
+@silent
 def check_color_in(j, line, color):
     """ j : int plus grandes cases, lines : array, color : int {blanc : 0, noir = 1, indeter = -1}"""
     for i in range(0, j+1):
@@ -66,9 +67,21 @@ def possible_block(j, l, line):
 
 @silent
 def T2(j, l, S, line):
+    if j < 0 and l >= 0:
+        return False
+    if j < 0 and l < 0:
+        return True   
     if l == -1:
-        return True
+        if line[j] == 1:
+            print('bloc noir en {} alors que plus de séquence'.format(j))
+            print('line :', line)
+            return False
+        if j == 0:
+            return True
+        return T2(j-1,l,S,line)
     sl = S[l]
+    if sl == 0:
+        return T2(j,l-1,S,line)
     #il faut verifier que chaque case n'est pas noir
     if (j == sl - 1):
         print('cas j = sl - 1')
@@ -98,11 +111,60 @@ def T2(j, l, S, line):
         b1 = T2(j-sl-1, l-1,S, line)
         #Pourquoi ce b1 s'active en mode silent ???
         print('b1 : ', b1)
-        return b1
-#        b2 = T2(j-1, l, S,line)
+        b2 = T2(j-1, l, S,line)
+        return b1 or b2
 #        print('b2 : ', b2)
 #        return b1 or b2
-            
+
+def color_case(i, S, vecteur):
+    v = np.copy(vecteur)
+    #black
+    v[i] = 1
+    print('S : ', S)
+    black = T2(len(v)-1,len(S)-1,S,v)
+    #white
+    v[i] = 0
+    white = T2(len(v)-1,len(S)-1,S,v)
+    if not(black and white):
+        #la grille n'a pas de solution
+        print("La grille n'est pas faisable")
+        print("arguments de T2 : j = {}, l = {}, S = {}, v = {}".format(len(v)-1, len(S) -1, S, v))
+        return False
+    if black and white:
+        return None
+    if black:
+        #on colorie le vecteur en noir
+        vecteur[i] = 1
+        return i
+    vecteur[i] = 0
+    return i
+    
+    
+
+def coloration(A, lines, col):
+    N, M = A.shape
+    L = [i for i in range(N)]
+    C = [i for i in range(M)]
+    while L != [] or C != []:
+        for i in range(len(L)):
+            li = lines[i]
+            new = color_case(i, li, A[i])
+            if new == False:
+                return False
+            if new is not None:
+                C += [new]
+        L = []
+        for j in range(len(C)):
+            cj = col[j]
+            new = color_case(j, cj, A[:,j])
+            if new == False:
+                return False
+            if new is not None:
+                L += [new]
+        C = []
+    return A
+                
+                
     
 def read_file(fname):
     f = open(fname,'r')
@@ -117,10 +179,10 @@ def read_file(fname):
             split = line.split()
             #element vide:
             if len(split) == 0:
-                split = -1
+                split = [0]
             else:
-                split = int(split[0])
-            #print('split : ', split)
+                split = [int(i) for i in split]
+                #print('split : ', split)
             if not(b):
                 l.append(split)
             else:
@@ -130,74 +192,24 @@ def read_file(fname):
     Mat = np.zeros((d1,d2)) - np.ones((d1,d2))
     return l, col, Mat
 
-@silent
-def sp():
-    """ print pour les Assert , attention cpt est une liste ! """
-    global cpt
-    print('====================================================')
-    print('                      TEST {}                       '.format(cpt))
-    print('====================================================')
-    cpt += 1
-    
-@silent
-def test_T():
-    assert(T(10, 1, [5,2]) == True)
-    assert(T(7, 1, [5,2]) == True)
-    assert(T(6, 1, [5,2]) == False)
-    assert(T(3, 0, [4]) == True)
-
-@silent
-def test_T2():
-    global cpt
-    e1 = np.array([1,1,1,-1,-1])
-    e2 = np.array([1,-1,-1,-1,-1])
-    e3 = np.array([1,-1,0,-1,-1])
-    e4 = np.array([1,0,-1,-1,0,-1])
-    cpt = 0
-    sp()
-    assert(T2(4, 0, [3], e1) == True)
-    sp()
-    assert(T2(4, 0, [3], e2) == True)
-    sp()
-    assert(T2(4,0,[3],e3) == False)
-    sp()
-    assert(T2(4,0,[3],e4) == False)
-
-@silent
-def test_possible_block():
-    a1 = [-1,-1,-1,-1,-1]
-    sl1 = 5
-    a2 = [-1, -1, 0, -1, -1]
-    
-    assert(possible_block(4,sl1, a1) == True)
-    assert(possible_block(3, sl1, a1) == False)
-    assert(possible_block(0, sl1, a1) == False)
-
-    assert(possible_block(4,sl1, a2) == False)
-    assert(possible_block(3, sl1, a2) == False)
-    assert(possible_block(0, sl1, a2) == False)
-    
-
 def draw(Matrice):
     plt.imshow(Matrice, cmap='binary', interpolation='nearest')
     plt.colorbar()
     plt.show()
     
 
-
-S = [5,2]
-v = T(6, len(S)-1, S)
-test_possible_block()
-test_T()
-test_T2()
-print('v : ', v)
-lines, col, Mat = read_file('Instances/test1')
-print('lines :', lines)
-print('cols : ', col)
-print('Mat : ', Mat)
-test = np.zeros((5,6))
-test[0][0] = 1
-test[2][2] = -1
-
-draw(test)
+if __name__ == "__main__":
+    S = [5,2]
+    v = T(6, len(S)-1, S)
+    print('v : ', v)
+    lines, col ,Mat = read_file('instances/0.txt')
+    print('lines :', lines)
+    print('cols : ', col)
+    print('Mat : ', Mat)
+    A = coloration(Mat, lines, col)
+    print('A : ', A)
+    #test = np.zeros((5,6))
+    #test[0][0] = 1
+    #test[2][2] = -1
+    #draw(test)
 #plt.show()
