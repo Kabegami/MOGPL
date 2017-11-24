@@ -29,6 +29,16 @@ def silent(function):
             return res
     return stop_print
 
+def memo(f):
+    dico = dict()
+    def helper(j, l, S, line):
+        key = (j,l)  + tuple(S) + tuple(line)
+        print('key : ', key)
+        if key not in dico:
+            dico[key] = f(j,l,S,line)
+        return dico[key]
+    return helper
+
 def set_debug(b):
     global debug
     debug = b
