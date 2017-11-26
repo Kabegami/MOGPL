@@ -31,4 +31,4 @@ def save(s, filename):
 
 s = del_print('projet.py')
 print(s)
-save(s, 'no_print_projet.py')
+save(s, 'projetv2.py')

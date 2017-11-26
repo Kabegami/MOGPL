@@ -47,80 +47,62 @@ def possible_block(j, l, line):
 
 #il faut utiliser la memoisation
 
-def T2(j, l, S, line,dico):
-    key = (j, l) + tuple(line)
-    if key in dico:
-        return dico[key]
+@memo
+def T2(j, l, S, line):
     if j < 0 and l >= 0:
-        dico[key] = False
         return False
     if j < 0 and l < 0:
-        dico[key] = True
         return True   
     if l == -1:
         if line[j] == 1:
-            dico[key] = False
             return False
         if j == 0:
-            dico[key] = True
             return True
-        dico[key] = T2(j-1,l,S,line,dico)
-        return dico[key]
+        return T2(j-1,l,S,line)
     sl = S[l]
     if sl == 0:
         b =  check_color_in(j, line, 1)
-        dico[key] = not(b)
         return not(b)
     #il faut verifier que chaque case n'est pas noir
     if (j == sl - 1):
         if l == 0 and not(check_color_in(j, line, 0)):
-            dico[key] = True
             return True
-        
-        dico[key] = False
         return False
     if (j>(sl - 1)):
         #cas noir
         if line[j] == 1:
             if not(possible_block(j, sl, line)):
-                dico[key] = False
                 return False
-            dico[key] =  T2(j-sl-1, l-1,S, line,dico)
-            return dico[key]
+            return T2(j-sl-1, l-1,S, line)
         #cas blanc
         if line[j] == 0:
-            dico[key] =  T2(j-1, l, S,line,dico)
-            return dico[key]
+            return T2(j-1, l, S,line)
         #cas non determiner
         #Quand on a pas de bloc forcement vrai.... du coup on peut toujours placer un bloc sur une case indeterminer
         if not(possible_block(j, sl, line)):
-            dico[key] = T2(j-1, l, S,line,dico)
-            return dico[key]
+            return T2(j-1, l, S,line)
            
-        b1 = T2(j-sl-1, l-1,S, line,dico)
-        b2 = T2(j-1, l, S,line,dico)
-        dico[key] = b1 or b2
-        return dico[key]
+        b1 = T2(j-sl-1, l-1,S, line)
+        b2 = T2(j-1, l, S,line)
+        return b1 or b2
 #        return b1 or b2
 
 
-def color_case(i, S, vecteur,dico):
+def color_case(i, S, vecteur):
     if vecteur[i] != -1:
         #cas ou la case est deja coloré
-        return True
+        return None
     v = np.copy(vecteur)
     #black
     v[i] = 1
-    black = T2(len(v)-1,len(S)-1,S,v,dico)
+    black = T2(len(v)-1,len(S)-1,S,v)
     #white
     v[i] = 0
-    white = T2(len(v)-1,len(S)-1,S,v,dico)
+    white = T2(len(v)-1,len(S)-1,S,v)
     if not(black) and not(white):
         #la grille n'a pas de solution
-        print("il n'y a pas de solution possible pour : i = {}, S = {}, vecteur = {}".format(i,S,vecteur))
         return False
     if black and white:
-        #on ne peut rien affirmer
         return None
     if black:
         #on colorie le vecteur en noir
@@ -134,51 +116,29 @@ def coloration(A, lines, col):
     N, M = A.shape
     L = set([i for i in range(N)])
     C = set([i for i in range(M)])
-    lineDico = dict()
-    colDico = dict()
     cpt = 0
     while L != set() or C != set():
         for i in L:
-            complete = True
             li = lines[i]
-            #print('i :', i)
             linecolor = A[i]
-            if i not in lineDico:
-                lineDico[i] = dict()
             for j in range(M):
-                new = color_case(j, li, linecolor,lineDico[i])
+                new = color_case(j, li, linecolor)
                 if new is False:
                     return False
-                if new is not None and new is not True:
-                    complete = False
+                if new is not None:
                     C.add(new)
-                if new is None:
-                    complete = False
-            #Si la ligne est complete, on la supprime du dictionnaire
-            if complete:
-                print('suppression de la ligne : ' , i)
-                del lineDico[i]
         L = set()
         for j in C:
             cj = col[j]
             colcolor = A[:,j]
-            complete = True
-            if j not in colDico:
-                colDico[j] = dict()
             for i in range(N):
-                new = color_case(i, cj, colcolor,colDico[j])
+                new = color_case(i, cj, colcolor)
                 if new is False:
                     return False
-                if new is not None and new is not True:
+                if new is not None:
                     L.add(new)
-                    complete = False
-                if new is None:
-                    complete = False
-            #suppression de la colone du dictionnaire si complete
-            if complete:
-                print('supression de la colonne : ', j)
-                del colDico[j]
         C = set()
+            
         cpt += 1
     return A
                 
@@ -217,9 +177,9 @@ def draw(Matrice):
     
 
 if __name__ == "__main__":
-    #l'instance 4 ne marche pas avec ma memoisation alors qu'elle marche sans
+    S = [5,2]
+    v = T(6, len(S)-1, S)
     lines, col ,Mat = read_file('instances/8.txt')
     A = coloration(Mat, lines, col)
-    #print('A : ', A)
     draw(A)
 #plt.show()
