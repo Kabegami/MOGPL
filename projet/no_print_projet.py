@@ -13,6 +13,19 @@ cpt = 0
 #pour changer la variable debug utiliser
 #set_debug(boolean)
 
+def try_del(key, dico):
+    try:
+        del dico[key]
+        #print('key {} suprimé avec succèes !'.format(key))
+    except KeyError:
+        pass
+
+def delete_iddle(dico, list_key):
+    for i in range(len(list_key)):
+        b = list_key[i]
+        if b:
+            try_del(i,dico)
+    
 
 def check_color_in(j, line, color):
     """ j : int plus grandes cases, lines : array, color : int {blanc : 0, noir = 1, indeter = -1}"""
@@ -128,9 +141,9 @@ def color_case(i, S, vecteur,dico):
         return i
     vecteur[i] = 0
     return i
-    
+
 @timer
-def coloration(A, lines, col):
+def coloration_longue(A, lines, col):
     N, M = A.shape
     L = set([i for i in range(N)])
     C = set([i for i in range(M)])
@@ -138,6 +151,7 @@ def coloration(A, lines, col):
     colDico = dict()
     cpt = 0
     while L != set() or C != set():
+        toSee = [True for j in range(M)]
         for i in L:
             complete = True
             li = lines[i]
@@ -154,17 +168,21 @@ def coloration(A, lines, col):
                     C.add(new)
                 if new is None:
                     complete = False
+                    toSee[j] = False
             #Si la ligne est complete, on la supprime du dictionnaire
             if complete:
-                print('suppression de la ligne : ' , i)
+                #print('suppression de la ligne : ' , i)
                 del lineDico[i]
+        delete_iddle(colDico, toSee)
         L = set()
+        toSee =[True for i in range(N)]
         for j in C:
             cj = col[j]
             colcolor = A[:,j]
             complete = True
             if j not in colDico:
                 colDico[j] = dict()
+            
             for i in range(N):
                 new = color_case(i, cj, colcolor,colDico[j])
                 if new is False:
@@ -173,11 +191,53 @@ def coloration(A, lines, col):
                     L.add(new)
                     complete = False
                 if new is None:
+                    #on ne peut toujours pas determiner la case
                     complete = False
+                    toSee[i] = False
             #suppression de la colone du dictionnaire si complete
             if complete:
-                print('supression de la colonne : ', j)
+                #print('supression de la colonne : ', j)
                 del colDico[j]
+        delete_iddle(lineDico, toSee)
+        C = set()
+        cpt += 1
+    return A
+
+#---------------------------------------------------------
+    
+@timer
+def coloration(A, lines, col):
+    N, M = A.shape
+    L = set([i for i in range(N)])
+    C = set([i for i in range(M)])
+    lineDico = dict()
+    colDico = dict()
+    cpt = 0
+    while L != set() or C != set():
+        for i in L:
+            complete = True
+            li = lines[i]
+            if i not in lineDico:
+                lineDico[i] = dict()
+            linecolor = A[i]
+            for j in range(M):
+                new = color_case(j, li, linecolor,lineDico[i])
+                if new is False:
+                    return False
+                if new is not None and new is not True:
+                    C.add(new)
+        L = set()
+        for j in C:
+            cj = col[j]
+            colcolor = A[:,j]
+            if j not in colDico:
+                colDico[j] = dict()
+            for i in range(N):
+                new = color_case(i, cj, colcolor,colDico[j])
+                if new is False:
+                    return False
+                if new is not None and new is not True:
+                    L.add(new)
         C = set()
         cpt += 1
     return A
@@ -219,7 +279,7 @@ def draw(Matrice):
 if __name__ == "__main__":
     #l'instance 4 ne marche pas avec ma memoisation alors qu'elle marche sans
     lines, col ,Mat = read_file('instances/8.txt')
-    A = coloration(Mat, lines, col)
+    A = coloration_longue(Mat, lines, col)
     #print('A : ', A)
     draw(A)
 #plt.show()
