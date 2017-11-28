@@ -58,7 +58,7 @@ def T2(j, l, S, line):
             return False
         if j == 0:
             return True
-        return T2(j-1,l,S,line)
+        return T2(j-1,l,S,line[:-1])
     sl = S[l]
     if sl == 0:
         b =  check_color_in(j, line, 1)
@@ -73,17 +73,17 @@ def T2(j, l, S, line):
         if line[j] == 1:
             if not(possible_block(j, sl, line)):
                 return False
-            return T2(j-sl-1, l-1,S, line)
+            return T2(j-sl-1, l-1,S, line[:j-sl])
         #cas blanc
         if line[j] == 0:
-            return T2(j-1, l, S,line)
+            return T2(j-1, l, S,line[:-1])
         #cas non determiner
         #Quand on a pas de bloc forcement vrai.... du coup on peut toujours placer un bloc sur une case indeterminer
         if not(possible_block(j, sl, line)):
-            return T2(j-1, l, S,line)
+            return T2(j-1, l, S,line[:-1])
            
-        b1 = T2(j-sl-1, l-1,S, line)
-        b2 = T2(j-1, l, S,line)
+        b1 = T2(j-sl-1, l-1,S, line[:j-sl])
+        b2 = T2(j-1, l, S,line[:-1])
         return b1 or b2
 #        return b1 or b2
 
