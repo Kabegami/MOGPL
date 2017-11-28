@@ -77,7 +77,7 @@ def T2(j, l, S, line,dico):
         if j == 0:
             dico[key] = True
             return True
-        dico[key] = T2(j-1,l,S,line,dico)
+        dico[key] = T2(j-1,l,S,line[:-1],dico)
         return dico[key]
     sl = S[l]
     if sl == 0:
@@ -98,20 +98,20 @@ def T2(j, l, S, line,dico):
             if not(possible_block(j, sl, line)):
                 dico[key] = False
                 return False
-            dico[key] =  T2(j-sl-1, l-1,S, line,dico)
+            dico[key] =  T2(j-sl-1, l-1,S, line[:j-sl],dico)
             return dico[key]
         #cas blanc
         if line[j] == 0:
-            dico[key] =  T2(j-1, l, S,line,dico)
+            dico[key] =  T2(j-1, l, S,line[:-1],dico)
             return dico[key]
         #cas non determiner
         #Quand on a pas de bloc forcement vrai.... du coup on peut toujours placer un bloc sur une case indeterminer
         if not(possible_block(j, sl, line)):
-            dico[key] = T2(j-1, l, S,line,dico)
+            dico[key] = T2(j-1, l, S,line[:-1],dico)
             return dico[key]
            
-        b1 = T2(j-sl-1, l-1,S, line,dico)
-        b2 = T2(j-1, l, S,line,dico)
+        b1 = T2(j-sl-1, l-1,S, line[:j-sl],dico)
+        b2 = T2(j-1, l, S,line[:-1],dico)
         dico[key] = b1 or b2
         return dico[key]
 #        return b1 or b2
