@@ -41,19 +41,27 @@ def solve(a,b,c):
     m.optimize()
                 
                 
-    print ""                
-    print 'Solution optimale:'
+    print(""                )
+    print('Solution optimale:')
     for j in colonnes:
-        print 'x%d'%(j+1), '=', x[j].x
-    print ""
-    print 'Valeur de la fonction objectif :', m.objVal
+        print ('x%d'%(j+1), '=', x[j].x)
+    print ("")
+    print ('Valeur de la fonction objectif :', m.objVal)
 
 
 def dual(a,b,c):
     return a.T, c, b
 
+def solve_pb(Mat, lines, col):
+    
+
 def main():
-    lines, col, Mat = read_file('instances/11.txt')
+    #lines, col, Mat = read_file('instances/11.txt')
+    #================================
+    #      TEST
+    Mat = np.array([[-1,-1,-1],[-1,-1,-1]])
+    lines = np.array([[2],[1]])
+    col = np.array([[1],[1],[1]])
     N, K = Mat.shape
     #creation du vecteur obj c
     c = np.ones((N,K))

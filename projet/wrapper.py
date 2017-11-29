@@ -39,17 +39,39 @@ def timer(f):
         print("temps d'execution de la fonction : {} secondes".format(I))
         return res
     return helper
-    
-        
+
 
 def memo(f):
     memo.dico = dict()
-    def helper(j, l, S, line):
-        key = (j,l)  + tuple(S) + tuple(line)
+    def helper(j,l,S,line):
+        key = (j,l) + tuple(S) + tuple(line)
         if key not in memo.dico:
             memo.dico[key] = f(j,l,S,line)
         return memo.dico[key]
     return helper
+
+def memo_id(f):
+    memo_id.dico = dict()
+    def helper(j, l, S, line):
+        idS = id(S)
+        idL = id(line)
+        key = (j,l, idS, idL)
+        #print('key : ' ,key)
+        if key not in memo_id.dico:
+            #print('creation de la clef pour line = {}'.format(line))
+            memo_id.dico[key] = f(j,l,S,line)
+        return memo_id.dico[key]
+    return helper
+
+def memo_str(f):
+    memo_str.dico = dict()
+    def helper(j,l,S,line):
+        key = str(j) + str(l) + str(S) + str(line)
+        if key not in memo_str.dico:
+            memo_str.dico[key] = f(j,l,S,line)
+        return memo_str.dico[key]
+    return helper
+
 
 def set_debug(b):
     global debug
