@@ -83,17 +83,19 @@ def T(j, l, S, line):
     if j < sl - 1:
         return False
     if (j == sl - 1):
-        return l == 0 and sameColor(line,1)
+        return (l == 0 and not(colorIn(line,0)))
     if (j > sl - 1):
         #noir
         if line[j] == 1:
-            if tryBlock(j,sl,line):
+            if not(tryBlock(j,sl,line)):
                 return False
             return T(j-sl-1, l -1, S,line[:j-sl])
         #blanc
         if line[j] == 0:
             return T(j-1,l,S,line[:-1])
-        #indeter
+        #-1
+        if not(tryBlock(j, sl, line)):
+            return T(j-1, l, S, line[:-1])
         return T(j-sl-1, l-1, S, line[:j-sl]) or T(j-1, l, S, line[:-1])
 
 def color_case(i, S, vecteur):

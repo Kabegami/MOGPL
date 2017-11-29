@@ -82,7 +82,7 @@ def T2(j, l, S, line):
         if not(possible_block(j, sl, line)):
             return T2(j-1, l, S,line[:-1])
            
-        b1 = T2(j-sl-1, l-1,S, line[:j-sl])
+        b1 = T2(j-sl-1, l-1, S, line[:j-sl])
         b2 = T2(j-1, l, S,line[:-1])
         return b1 or b2
 #        return b1 or b2
