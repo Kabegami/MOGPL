@@ -92,17 +92,18 @@ def color_case(i, S, vecteur):
     if vecteur[i] != -1:
         #cas ou la case est deja coloré
         return None
-    v = np.copy(vecteur)
     #black
-    v[i] = 1
-    black = T2(len(v)-1,len(S)-1,S,v)
+    vecteur[i] = 1
+    N = len(vecteur)
+    black = T2(N-1,len(S)-1,S,vecteur)
     #white
-    v[i] = 0
-    white = T2(len(v)-1,len(S)-1,S,v)
+    vecteur[i] = 0
+    white = T2(N-1,len(S)-1,S,vecteur)
     if not(black) and not(white):
         #la grille n'a pas de solution
         return False
     if black and white:
+        vecteur[i] = -1
         return None
     if black:
         #on colorie le vecteur en noir
