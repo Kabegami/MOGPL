@@ -75,7 +75,8 @@ def tryBlock(j, sl, line):
     if line[case - 1] == 1:
         return False
     return True
-    
+
+@memo
 def T(j, l, S, line):
     sl = S[l]
     if l == -1:
