@@ -1,10 +1,12 @@
 # coding: utf-8
 
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 import sys
 import profile
+import tools
 from wrapper import *
 #import test
 
@@ -13,6 +15,13 @@ cpt = 0
 
 #pour changer la variable debug utiliser
 #set_debug(boolean)
+
+def timeIt(f , *args):
+    t1 = time.time()
+    res = f(*args)
+    t2 = time.time()
+    diff = t2 - t1
+    return res, diff
 
 def check_color_in(j, line, color):
     """ j : int plus grandes cases, lines : array, color : int {blanc : 0, noir = 1, indeter = -1}"""
@@ -40,7 +49,7 @@ def possible_block(j, l, line):
         if j - i < 0:
             return False
     #dernier car
-    if line[j - i - 1] == 1:
+    if line[j - (l - 1) - 1] == 1:
         return False
     return True
 
@@ -167,11 +176,45 @@ def draw(Matrice):
     plt.imshow(Matrice, cmap='binary', interpolation='nearest')
     plt.colorbar()
     plt.show()
+
+    
+def stat(start=0, end=10, dirname='instances'):
+    dico_stat = dict()
+    for i in range(start,end+1):
+        filename= dirname + '/'+str(i)+'.txt'
+        lines, col, Mat = read_file(filename)
+        N, K = Mat.shape
+        nbCases = N * K
+        dico_stat.setdefault('nbCases',[]).append(nbCases)
+        nb_cLines = 0
+        for c_line in lines:
+            nb_cLines += len(c_line)
+        dico_stat.setdefault('nb_cLines',[]).append(nb_cLines)
+        nb_cCol = 0
+        for c_col in col:
+            nb_cCol += len(c_col)
+        dico_stat.setdefault('nb_cCol',[]).append(c_col)
+        
+        A, time = timeIt(coloration, Mat,lines, col)
+        dico_stat.setdefault('time',[]).append(time)
+        print("fin de l'iteration ", i)
+    return dico_stat
+        
+        
     
 
 if __name__ == "__main__":
-    lines, col ,Mat = read_file('instances/9.txt')
-    A = coloration(Mat, lines, col)
-    draw(A)
-    print('temps de calcul des clefs : ', memo_id.keyTime)
+    lines, col ,Mat = read_file('instances/6.txt')
+    #A = coloration(Mat, lines, col)
+    #draw(A)
+    dico = stat(0,8)
+    print('dico : ', dico)
+    L1 = dico['nbCases']
+    L2 = dico['time']
+    tools.draw_graphe(L1,L2)
+    q = tools.verifComplexite(L1,L2)
+    print('complexité : ', q)
+    
+    #print('temps de calcul des clefs : ', memo_id.keyTime)
+    
 #plt.show()
