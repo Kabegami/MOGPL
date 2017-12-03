@@ -2,7 +2,7 @@
 
 #variable global
 
-from projet import *
+from projetv2 import *
 from wrapper import *
 
 debug = False

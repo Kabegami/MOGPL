@@ -4,6 +4,14 @@ import os
 import sys
 import time
 
+def test_block():
+    assert(tryBlock(4,3,[1,-1,-1,-1,1]) == True)
+    assert(tryBlock(3,3,[0,-1,-1,-1,0]) == True)  
+    assert(tryBlock(4,3,[-1,-1,-1,-1,-1]) == True)
+    assert(tryBlock(3,3,[0,-1,-1,-1,0]) == True)
+    assert(tryBlock(2,3,[-1,-1,-1,0,0]) == True)
+    assert(tryBlock(2,3,[-1,-1,1,0,0]) == True)
+
 def memo(function):
     dico = dict()
     def helper(j,l,S, line):
@@ -66,18 +74,67 @@ def sameColor(line, color):
     return True
 
 def tryBlock(j, sl, line):
+    #on verifie que la case d'avant n'est pas noir + bornes
+    if j + 1 < len(line) and line[j+1] == 1:
+        return False
     for i in range(sl):
         case = j - i
+        print('case : ', case)
         if case < 0:
             return False
-        if line[case] != 1:
+        if line[case] == 0:
             return False
     if line[case - 1] == 1:
         return False
     return True
 
+def T3(line, S):
+    if line == [] and S != []:
+        return False
+    if line == [] and S == []:
+        return True
+    if S == []:
+        return line == [0 for i in line]
+    K = len(line)
+    if K < S[:-1]:
+        return False
+    if K == S[:-1]:
+        return K == 0 and line == [0 for i in line]
+    if K > S[:-1]:
+        last = line[:-1]
+        if last == 1:
+            pass
+        
+
+def T2(j, l, S, line):
+    print(' l : ', l)
+    print('j : ', j)
+    sl = S[l]
+    if l <= 0:
+        return not(colorIn(line,1))
+    if j < sl - 1:
+        return False
+    if j == (sl - 1):
+        return l == 0 and not(colorIn(line,0))
+    if j > sl - 1:
+        if line[j] == 1:
+            if (tryBlock(j, sl, line)) == False:
+                   return False
+            return T2(j-sl-1, l-1, S, line[:j-sl])
+        #white
+        if line[j] == 0:
+            return T(j-1,l,S,line[:-1])
+        #-1
+        if (tryBlock(j, sl, line)):
+            return T(j-sl-1, l-1, S, line[:j-sl])
+        return T2(j-1, l, S, line[:-1]) 
+
 @memo
 def T(j, l, S, line):
+    if j == 0 and l != -1:
+        return False
+    if j == 0 and l == -1:
+        return True
     sl = S[l]
     if l == -1:
         return not(colorIn(line, 1))
@@ -97,7 +154,7 @@ def T(j, l, S, line):
         #-1
         if not(tryBlock(j, sl, line)):
             return T(j-1, l, S, line[:-1])
-        return T(j-sl-1, l-1, S, line[:j-sl]) or T(j-1, l, S, line[:-1])
+        return T(j-1, l, S, line[:-1])
 
 def color_case(i, S, vecteur):
     if vecteur[i] != -1:
@@ -118,6 +175,7 @@ def color_case(i, S, vecteur):
         return None
     if black:
         #on colorie le vecteur en noir
+        print('coloration black : ',i)
         vecteur[i] = 1
         return i
     if white:
@@ -140,6 +198,7 @@ def coloration(A, lines, col):
                 new = color_case(j, li, linecolor)
                 if new is False:
                     print('j : {}, li : {}, linecolor : {}'.format(j,li, linecolor))
+                    print('last A : ', A)
                     return False
                 if new is not None:
                     C.add(new)
@@ -160,7 +219,8 @@ def coloration(A, lines, col):
     return A
 
 if __name__ == "__main__":
-    lines, col, Mat = read_file('instances/8.txt')
+    test_block()
+    lines, col, Mat = read_file('instances/1.txt')
     A, t = timer(coloration,Mat, lines, col)
     print('A : ', A)
     print("temps d'execution de la fonction : {} secondes".format(t))
