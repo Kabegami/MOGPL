@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
 import math
+import pickle
 
 def draw_graphe(L1, L2, xlabel="Nombre de cases à coloriées", ylabel="Temps de calcul"):
     plt.plot(L1, L2)
@@ -34,3 +35,4 @@ def verifComplexite(L1, L2):
     y = np.array(t2)
     slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
     return slope
+

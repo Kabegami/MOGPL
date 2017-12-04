@@ -16,6 +16,15 @@ cpt = 0
 #pour changer la variable debug utiliser
 #set_debug(boolean)
 
+def save(data, fichier):
+    pickle.dump(data, open(fichier, 'wb'))
+    print('Données sauvegardées avec succès !')
+
+def load(fichier):
+    data = pickle.load(open(fichier, 'rb'))
+    return data
+    
+
 def timeIt(f , *args):
     t1 = time.time()
     res = f(*args)
@@ -178,7 +187,7 @@ def draw(Matrice):
     plt.show()
 
     
-def stat(start=0, end=10, dirname='instances'):
+def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
     dico_stat = dict()
     for i in range(start,end+1):
         filename= dirname + '/'+str(i)+'.txt'
@@ -198,6 +207,8 @@ def stat(start=0, end=10, dirname='instances'):
         A, time = timeIt(coloration, Mat,lines, col)
         dico_stat.setdefault('time',[]).append(time)
         print("fin de l'iteration ", i)
+    if saveData:
+        save(dico_stat, fichier)
     return dico_stat
         
         
@@ -207,7 +218,8 @@ if __name__ == "__main__":
     lines, col ,Mat = read_file('instances/6.txt')
     #A = coloration(Mat, lines, col)
     #draw(A)
-    dico = stat(0,8)
+    dico = stat(0,8,saveData=True)
+    #dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
