@@ -202,7 +202,7 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
         nb_cCol = 0
         for c_col in col:
             nb_cCol += len(c_col)
-        dico_stat.setdefault('nb_cCol',[]).append(c_col)
+        dico_stat.setdefault('nb_cCol',[]).append(nb_cCol)
         
         A, time = timeIt(coloration, Mat,lines, col)
         dico_stat.setdefault('time',[]).append(time)
@@ -218,14 +218,16 @@ if __name__ == "__main__":
     lines, col ,Mat = read_file('instances/6.txt')
     #A = coloration(Mat, lines, col)
     #draw(A)
-    dico = stat(0,8,saveData=True)
-    #dico = load('data')
+    #dico = stat(0,10,saveData=True)
+    dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
     tools.draw_graphe(L1,L2)
     q = tools.verifComplexite(L1,L2)
     print('complexité : ', q)
+    s = tools.toLatexTab(dico)
+    print(s)
     
     #print('temps de calcul des clefs : ', memo_id.keyTime)
     

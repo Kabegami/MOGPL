@@ -4,6 +4,37 @@ from scipy import stats
 import math
 import pickle
 
+def toLatexTab(dico, listKey=None,n=None):
+    if listKey is None:
+        listKey = dico.keys()
+    listKey = list(listKey)
+    if n is None:
+        n = len(dico[listKey[0]])
+    nkey = len(dico.keys())
+    allignement = '|c|'* (nkey + 1)
+    s = '\\begin{tabular}{' + allignement + '}\n'
+    s += '\\hline\n'
+    #Header
+    line = 'instances & '
+    for key in dico:
+        line += str(key) + ' & '
+    line = line[:-2] + "\\\ " + '\n'
+    s += line
+    s += '\\hline\n'
+    for i in range(n):
+        line = str(i) + ' & '
+        for key in listKey:
+            data = dico[key]
+            #print('data : ', data)
+            line += str(data[i]) + ' & '
+        line = line[:-2] + "\\\ "
+        s += line + '\n'
+        s += '\\hline\n'
+    s +=  '\\end{tabular}'
+    return s
+#    for i in range(n):
+        
+
 def draw_graphe(L1, L2, xlabel="Nombre de cases à coloriées", ylabel="Temps de calcul"):
     plt.plot(L1, L2)
     plt.xlabel(xlabel)

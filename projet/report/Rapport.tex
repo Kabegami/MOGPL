@@ -1,0 +1,211 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Most used packages %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper]{memoir}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{pgf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{color}
+\usetikzlibrary{arrows, automata, positioning}
+\usepackage{lstautogobble}
+\usepackage[framemethod=tikz]{mdframed}
+
+%%% Used language
+\usepackage[english]{babel}
+
+%%% Default margin
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+
+%%% Default indentation
+\setlength{\parindent}{0cm}
+
+
+%%%%%%%%%%%%%%%%%%
+%%% Cover page %%%
+%%%%%%%%%%%%%%%%%%
+%%% Template link :
+%%% http://mirror.jmu.edu/pub/CTAN/info/latex-samples/TitlePages/titlepages.pdf
+%%% Many thanks to Peter Wilson for is work.
+\newlength{\drop}
+\newcommand*{\titleM}{\begingroup % Misericords, T&H p 153
+\drop = 0.08\textheight
+\centering
+\vspace*{\drop}
+
+%%% Document title
+{\Huge\bfseries Titre du document}\\[\baselineskip]
+
+%%% Document sub-title, can be repeated
+{\large\scshape Sous-titre du document}\\[\baselineskip]
+
+%%% Center text
+\begin{vplace}[0.7]
+    \textit{Texte central}
+\end{vplace}
+
+%%% Authors
+{\scshape Realisé par\\ Etudiant 1\\ et\\ Etudiant 2}\par
+
+\vspace*{2\drop}
+\endgroup}
+
+
+%%%%%%%%%%%%%%%%%%%
+%%% Page number %%%
+%%%%%%%%%%%%%%%%%%%
+\let\footruleskip\undefined
+\usepackage{fancyhdr} 
+\fancyhf{}
+\cfoot{\thepage}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Section name format %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{secnumdepth}{50}
+\setcounter{tocdepth}{50}
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%% Environments %%%
+%%%%%%%%%%%%%%%%%%%%
+%%% Proof
+\newenvironment{myproof}[1][\proofname]{\proof[#1]\mbox{}\\*}{\endproof}
+
+
+
+
+
+\begin{document}
+    %%%%%%%%%%%%%%%%%%
+    %%% Cover page %%%
+    %%%%%%%%%%%%%%%%%%
+    \begin{center}
+    \titleM 
+    \end{center}
+    \clearpage
+    
+    %%%%%%%%%%%%%%%
+    %%% Summary %%%
+    %%%%%%%%%%%%%%%
+    \begin{center}
+    \tableofcontents
+    \end{center}
+    
+    %%%%%%%%%%%%%%%%%%
+    %%% First page %%%
+    %%%%%%%%%%%%%%%%%%
+    \newpage
+    
+    \section{I. Raisonnement par programmation dynamique}
+    \subsection{1 - Première étape}
+    \textbf{Question 1:}\\\\ Si l’on a calculé tous les $T(j, l)$, pour savoir si il est possible de colorier la ligne $l_{i}$ entière avec la séquence entière  il suffit de de regarder $T(m-1, k)$, si ce dernier vaut vrai alors il est possible de colorier la ligne entière avec la séquence entière. Si il vaut faux alors ce n'est pas possible.\\\\
+    \textbf{Question 2:}
+    \begin{itemize}
+		\item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai
+		\item Cas $l \geqslant 1$, $j < s_{l}-1$: Faux
+		\item Cas $l \geqslant 1$, $j = s_{l}-1$:
+		\begin{itemize}
+			\item Si $l = 1$ alors Vrai 
+			\item Si $l \neq 1$ alors Faux
+		\end{itemize}
+	\end{itemize}
+ 	
+ 	\textbf{Question 3:}\\\\
+ 	La relation de récurrence permettant de calculer $T(j,l)$ est la suivante:\\\\
+ 	$T(j, l) = T(j-(s_{l}+1),l-1)$\\\\
+ 	En effet si l'on se trouve à la case j et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les coloration de $s_{l-1} et s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$
+
+\begin{tabular}{|c||c||c||c||c|}
+\hline
+instances & nbCases & nb_cLines & nb_cCol & time \\ 
+\hline
+0 & 20 & 6 & 7 & 0.0003902912139892578 \\ 
+\hline
+1 & 25 & 9 & 9 & 0.001840829849243164 \\ 
+\hline
+2 & 400 & 74 & 54 & 0.2608957290649414 \\ 
+\hline
+3 & 481 & 39 & 90 & 0.24814534187316895 \\ 
+\hline
+4 & 625 & 112 & 112 & 0.396716833114624 \\ 
+\hline
+5 & 675 & 52 & 61 & 0.47020387649536133 \\ 
+\hline
+6 & 900 & 102 & 100 & 1.2078001499176025 \\ 
+\hline
+7 & 1054 & 102 & 76 & 0.6994450092315674 \\ 
+\hline
+8 & 1400 & 115 & 98 & 1.0557177066802979 \\ 
+\hline
+9 & 2500 & 239 & 334 & 12.915187358856201 \\ 
+\hline
+10 & 9801 & 364 & 349 & 20.11224913597107 \\ 
+\hline
+\end{tabular}
+
+
+
+
+ 	
+ 	\newpage
+ 	\section{II. La PLNE à la rescousse}
+    \subsection{1 - Modélisation}
+    \textbf{Question 10:}\\\\ - $x_{ij}$ vaut 1 si la case (i, j)est coloriée en noir et 0 si coloriée en noir.\\\\
+    - $y^{t}_{ij}$ vaut 1 si le $t_{ieme}$ bloc de la ligne $l_{i}$ commence à la case (i, j) et 0 sinon.\\\\
+    - $z^{t}_{ij}$ vaut 1 si le $t_{ieme}$ bloc de la colonne $c_{j}$ commence à la case (i, j) et 0 sinon.\\\\
+    Par conséquent on a : $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} = s_{t}$\\ Et donc $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} = y^{t}_{ij} \times s_{t} $ \\ Par conséquent la condition est: $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}  $ \\ Avec le même raisonnement on a pour les colonnes: $\sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $\\
+    \textbf{Question 11:}\\\\On a: $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} = 0$\\ et $y^{t}_{ij} = 0 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \in \lbrace 0 , 1\rbrace$\\
+    Et donc la condition est: $y^{t}_{ij} + \sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \leq 1$\\
+    Avec le même raisonnement on a pour les colonnes: $z^{t}_{ij} + \sum \limits_{{k=i}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$\newpage
+    \textbf{Question 12:}\\\\
+   
+  Min z = ?\\ 
+  $$	
+	s.c\left\{
+    \begin{array}{ll}
+         \sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}$ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+         
+        \sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+        
+        y^{t}_{ij} + \sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \leq 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+        
+        z^{t}_{ij} + \sum \limits_{{k=i}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+        
+        \sum \limits_{{j=0}}^{M-1} y^{t}_{ij} = 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+        
+        \sum \limits_{{i=0}}^{N-1} z^{t}_{ij} = 1 $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+        
+      x_{ij} \in \lbrace0,1\rbrace$ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall j \in \lbrace 0, 1, 2,...,M-1\rbrace\\\\
+      
+      y^{t}_{ij} \in \lbrace0,1\rbrace $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+      
+      z^{t}_{ij} \in \lbrace0,1\rbrace $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+    \end{array}\\\\
+\right.
+$$
+\\
+\subsection{2 - Implantation et tests}
+\textbf{Question 13: }\\\\
+(N'oublions pas que j commence à 0 et termine à M-1)\\
+- Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$ . 
+
+
+     
+\end{document}
