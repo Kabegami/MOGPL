@@ -218,8 +218,8 @@ if __name__ == "__main__":
     lines, col ,Mat = read_file('instances/6.txt')
     #A = coloration(Mat, lines, col)
     #draw(A)
-    #dico = stat(0,10,saveData=True)
-    dico = load('data')
+    dico = stat(0,10,saveData=True)
+    #dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
