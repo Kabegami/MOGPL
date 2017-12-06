@@ -7,12 +7,6 @@ from gurobipy import *
 from projet import *
 import numpy as np
 
-def get_list(L, index, default=None):
-    try:
-        return L[index]
-    except IndexError:
-        return default
-
 def X_to_array(X, K):
     M = []
     L = []
@@ -111,42 +105,37 @@ def solve(Mat, lines, col):
         Z2[j] = M2
     #print('Y2 : ', Y2)
 
-    for i in range(0,N):
+    for i in range(0, N):
+        for j in range(0, K):
+            X.append(
+    
+    for i in range(N):
+        b = True
         T = []
-        for j in range(0,K):
-            T.append((m.addVar(vtype=GRB.BINARY, lb=0, name='X'+str(i)+str(j))))
+        for j in range(K):
+            T.append(m.addVar(vtype=GRB.BINARY, lb=0, name='X'+str(i)+str(j)))
+            for t1 in range(0,len(lines[i])):
+                print('t1', t1)
+                M2 = Y2.get(i, [[0 for j in range(0,K)] for t in range(0,len(lines[i]))])
+                #print('M2 : ', M2)
+                M = Y.get(t1, [[0 for o in range(K)] for p in range(N)])
+                M[i][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
+                M2[t1][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
+                #print('i : {},j : {},t : {}'.format(i,j,t1))
+                #print('M : ', M)
+                Y[t1] = M
+                Y2[i] = M2
+            for t2 in range(0,len(col[j])):
+                M = Z.get(t2, [[0 for q in range(N)] for z in range(K)])
+                M[j][i] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Z[{}]{}{}'.format(t2, i, j)))
+                Z[t2] = M
         X.append(T)
-    
-            
-    
-    #for i in range(N):
-#        b = True
-#        T = []
-#        for j in range(K):
-#            T.append(m.addVar(vtype=GRB.BINARY, lb=0, name='X'+str(i)+str(j)))
-#            for t1 in range(0,len(lines[i])):
-#                print('t1', t1)
-#                M2 = Y2.get(i, [[0 for j in range(0,K)] for t in range(0,len(lines[i]))])
-#                #print('M2 : ', M2)
-#                M = Y.get(t1, [[0 for o in range(K)] for p in range(N)])
-#                M[i][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
-#                M2[t1][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
-#                #print('i : {},j : {},t : {}'.format(i,j,t1))
-#                #print('M : ', M)
-#                Y[t1] = M
-#                Y2[i] = M2
-#            for t2 in range(0,len(col[j])):
-#                M = Z.get(t2, [[0 for q in range(N)] for z in range(K)])
-#                M[j][i] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Z[{}]{}{}'.format(t2, i, j)))
-#                Z[t2] = M
-#        X.append(T)
         
     m.update()
-    print('X : ', X)
     print('Y2 : ', Y2)
     print('Z2 : ', Z2)
-    #print('Y ', Y)
-    #print('Z ', Z)
+    print('Y ', Y)
+    print('Z ', Z)
     #print('Y2 ', Y2)
     obj = LinExpr();
     obj = 0
@@ -159,72 +148,71 @@ def solve(Mat, lines, col):
 #    print('Y : ', Y)
     #contrainte sur les j
     for i in range(N):
-        Yi = Y2[i]
         for t in range(len(lines[i])):
             s = 0
-            yt= Yi[t]
+            yt= Y[t]
             #print('yt :' , yt)
             for j in range(K):
-                s += yt[j]
+                s += yt[i][j]
             m.addConstr(s <= 1,'contrainte unicité > y ' + str(t))
             m.addConstr(s >= 1,'contrainte unicité < y ' + str(t))
 
     for j in range(K):
-        Zj = Z2[j]
         for t in range(0, len(col[j])):
             s = 0
-            zt= Zj[t]
+            zt= Z[t]
             for i in range(N):
-                s += zt[i]
+                s += zt[j][i]
             print('unicité s : ', s)
             m.addConstr(s <= 1,'contrainte unicité > z ' + str(t))
             m.addConstr(s >= 1,'contrainte unicité < z ' + str(t))
 
+    #print('M')
+    #print(Y[0])
+    print('Z')
+    print(Z[0])
     #contraintes sur le pose bloc ligne
     for i in range(0, N):
-        Yi = Y2[i]
         for t in range(0,len(lines[i])):
-            yt = Yi[t]
             st = (lines[i])[t]
             for j in range(0, K):
-                s = yt[j]
+                yt = Y[t]
+                s = yt[i][j]
                 for k in range(j,st):
-                    for prime in range(t+1, len(lines[i])):
+                    for prime in range(t+1, len(lines[t])):
                         print('i : ', i)
                         print('k : ', k)
                         print('prime', prime)
-                        print('Y2i', Y2[i])
-                        s += (Y2[i][prime][j])
+                        s += (Y[prime])[i][k]
                 print('s : ' ,s)
-                #j'ai une contrainte pour chaque i et chaque j
                 m.addConstr(s <= 1, 'contrainte pose bloc lignes Y[{}]{}{}'.format(t,i,j))
                 #reset s
                 s = 0
+
+    print('Y')
+    print(Y[0])
     
     #contraintes sur le pose bloc ligne
     for j in range(0, K):
-        Zj = Z2[j]
         for t in range(0,len(col[j])):
             st = (col[j])[t]
-            zt = Zj[t]
             for i in range(0, N):
-                s = zt[i]
-                for k in range(i,i+col[j]):
+                zt = Z[t]
+                s = zt[j][i]
+                for k in range(i,i+col[t]):
                     for prime in range(t+1, len(col[j])):
-                        s += (Z2[j][prime][i])
+                        s += (Z[prime])[j][k]
                 m.addConstr(s <= 1, 'contrainte pose bloc lignes Z[{}]{}{}'.format(t,i,j))
                 #reset s
                 s = 0
                 
 
-    #A revoir
     for i in range(0, N):
         lc = lines[i]
-        Yi = Y2[i]
         for t in range(0, len(lc)):
-            yt = Yi[t]
-            ytPlus = get_list(Yi, t+1)
-            #ytPlus = Yi.get(t+1, None)      
+            print('t ', t)
+            yt = Y[t]
+            ytPlus = Y.get(t+1, None)      
             st = lines[i][t]
             s = 0
             for j in range(0, K):
@@ -240,7 +228,6 @@ def solve(Mat, lines, col):
                 #reset s
                 s = 0
 
-    #A revoir
     for j in range(0, K):
         cc = col[j]
         for t in range(0, len(cc)):
@@ -255,7 +242,6 @@ def solve(Mat, lines, col):
                         s += ztPlus[i][k]
                 m.addConstr(s <= 1 , 'contrainte taille bloc Z')
 
-    #A revoir avec Y2
     for i in range(N):
         lc = lines[i]
         for t in range(0, len(lc)):
@@ -272,7 +258,6 @@ def solve(Mat, lines, col):
                 #reset de s
                 s = 0
 
-    #A revoir avec Z2
     for j in range(K):
         cc = col[j]
         for t in range(0, len(cc)):
