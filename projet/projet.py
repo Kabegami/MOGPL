@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import profile
-#import tools
+import tools
 from wrapper import *
 #import test
 
@@ -219,18 +219,18 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 if __name__ == "__main__":
     lines, col ,Mat = read_file('instances/0.txt')
     print('lines', lines)
-    A = coloration(Mat, lines, col)
-    print('A : ', A)
-    draw(A)
+    #A = coloration(Mat, lines, col)
+    #print('A : ', A)
+    #draw(A)
     #dico = stat(0,10,saveData=True)
     dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
-    #tools.draw_graphe(L1,L2)
-    #q = tools.verifComplexite(L1,L2)
-    #print('complexité : ', q)
-    #s = tools.toLatexTab(dico)
+    tools.draw_graphe(L1,L2)
+    q = tools.verifComplexite(L1,L2)
+    print('complexité : ', q)
+    s = tools.toLatexTab(dico)
     print(s)
     
     #print('temps de calcul des clefs : ', memo_id.keyTime)

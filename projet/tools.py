@@ -2,7 +2,12 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy import stats
+try:
+    from scipy import stats
+    noLib = False
+except:
+    noLib = True
+
 import math
 import pickle
 
@@ -62,6 +67,10 @@ def multiple_draw_graphe(M, Ltime, xlabel="Nombre de cases à coloriées", ylabe
 
 def verifComplexite(L1, L2):
     """ Si nos données ont une complexitée polynomiale alors on a une fonction de la forme f(x) = a*x^K donc log(f(x)) = log(a) + k * log(b) donc si on trace la courbe au log la pente correspond à K , c'est à dire la complexité """
+    global noLib
+    if noLib:
+        print("La bibliotheque scipy.stats n'est pas présente sur la machine, donc la fonction verifComplexite ne marche pas")
+        return None
     t1 = list(map(math.log, L1))
     t2 = list(map(math.log, L2))
     x = np.array(t1)
