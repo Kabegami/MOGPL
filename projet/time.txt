@@ -1,3 +1,0 @@
-instance8 = 1.9 secondes
-instance9 = 34 secondes
-instance10 = 58 secondes

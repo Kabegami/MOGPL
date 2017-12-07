@@ -319,6 +319,35 @@ def solve(Mat, lines, col):
                 m.addConstr(s >= 0, 'nb case bloc Z')
                 #reset s
                 s = 0
+                
+    #contrainte start
+    for i in range(0,N):
+        lc = lines[i]
+        Yi = Y2[i]
+        for t in range(0, len(lc)):
+            yt = Yi[t]
+            st = lc[t]
+            start = sum([lc[p] + 1 for p in range(0, t)])
+            end = K - st - sum([lc[q] + 1 for q in range(t + 1, len(lc))])
+            for j in range(0, start):
+                m.addConstr(yt[j] < 1, 'Y cc start')
+            for j in range(K, end,-1):
+                m.addConstr(yt[j] < 1, 'Y cc stop')
+
+    #contrainte start
+    for j in range(0,K):
+        cc = col[j]
+        Zj = Z2[j]
+        for t in range(0, len(lc)):
+            st = cc[t]
+            start = sum([cc[p] + 1 for p in range(0, t)])
+            end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(cc))])
+            zt = Zj[t]
+            for i in range(0, start):
+                m.addConstr(zt[i] < 1, 'Z cc start')
+            for i in range(K, end,-1):
+                m.addConstr(zt[i] < 1, 'Z cc stop')
+    
 
 #    for i in range(0,N):
 #        lc = lines[i]
