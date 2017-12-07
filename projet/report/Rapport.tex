@@ -132,33 +132,35 @@
  	$T(j, l) = T(j-(s_{l}+1),l-1)$\\\\
  	En effet si l'on se trouve à la case j et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les coloration de $s_{l-1} et s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$
 
-\begin{tabular}{|c||c||c||c||c|}
+\begin{tabular}{|c||c||c|}
 \hline
-instances & nb_cLines & time & nb_cCol & nbCases \\ 
+instances & nbCases & time \\ 
 \hline
-0 & 6 & 0.0006148815155029297 & 7 & 20 \\ 
+0 & 20 & 0.000452041625977 \\ 
 \hline
-1 & 9 & 0.0023577213287353516 & 9 & 25 \\ 
+1 & 25 & 0.000588178634644 \\ 
 \hline
-2 & 74 & 0.24366474151611328 & 54 & 400 \\ 
+2 & 400 & 0.123682022095 \\ 
 \hline
-3 & 39 & 0.16124892234802246 & 90 & 481 \\ 
+3 & 481 & 0.0982971191406 \\ 
 \hline
-4 & 112 & 0.321256160736084 & 112 & 625 \\ 
+4 & 625 & 0.17849612236 \\ 
 \hline
-5 & 52 & 0.34999847412109375 & 61 & 675 \\ 
+5 & 675 & 0.214619159698 \\ 
 \hline
-6 & 102 & 0.9388997554779053 & 100 & 900 \\ 
+6 & 900 & 0.559221982956 \\ 
 \hline
-7 & 102 & 0.6064395904541016 & 76 & 1054 \\ 
+7 & 1054 & 0.331871986389 \\ 
 \hline
-8 & 115 & 0.7676417827606201 & 98 & 1400 \\ 
+8 & 1400 & 0.481527090073 \\ 
 \hline
-9 & 239 & 9.089713335037231 & 334 & 2500 \\ 
+9 & 2500 & 5.98904299736 \\ 
 \hline
-10 & 364 & 13.922056198120117 & 349 & 9801 \\ 
+10 & 9801 & 9.75069284439 \\ 
 \hline
 \end{tabular}
+
+
 
 
 

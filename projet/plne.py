@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#coding: utf-8
+#-*- coding: utf-8 -*-
 # Copyright 2013, Gurobi Optimization, Inc.
 
 
@@ -46,6 +46,26 @@ def test_simple2():
     A = solve(Mat, lines, col)
     draw(A)
 
+def test_simple3():
+    Mat = np.array([[-1,-1,-1,-1,-1]])
+    Mat = np.reshape(Mat, (1,len(Mat[0])))
+    print('Mat : ', Mat)
+    lines = np.array([[2,2]])
+    col = np.array([[1],[1],[0],[1],[1]])
+    A = solve(Mat, lines, col)
+    draw(A)
+
+def test_simple4():
+    Mat = np.array([[-1,-1,-1,-1,-1],
+                    [-1,-1,-1,-1,-1]])
+    #Mat = np.reshape(Mat, (1,len(Mat[0])))
+    print('Mat : ', Mat)
+    lines = np.array([[3,1],[3]])
+    col = np.array([[1],[1],[2],[1],[2]])
+    A = solve(Mat, lines, col)
+    draw(A)
+                 
+
 def test_overlap():
     Mat = np.array([[-1,-1,-1,-1],[-1,-1,-1,-1]])
     lines = np.array([[2,1],[1]])
@@ -63,15 +83,17 @@ def solve(Mat, lines, col):
     T2 = len(col)
     Y = dict()
     Z = dict()
+    listContraintes = []
+    
     #on verra apres
-    startLine = []
-    for i in range(len(lines)):
-        Lcontrainte = lines[i]
-        taille = len(lines[i])
-        line = []
-        for j in range(1,taille):
-            line.append(Lcontrainte[j] + 1)
-        startLine.append(line)
+    #startLine = []
+#    for i in range(len(lines)):
+#        Lcontrainte = lines[i]
+#        taille = len(lines[i])
+#        line = []
+#        for j in range(1,taille):
+#            line.append(Lcontrainte[j] + 1)
+#        startLine.append(line)
 
     #stopLine = []
     #for i in range(len(lines)):
@@ -96,9 +118,6 @@ def solve(Mat, lines, col):
         M2 = Y2.get(i, [[0 for j in range(0,K)] for t in range(0,len(lines[i]))])
         for t1 in range(0, len(lines[i])):
             for j in range(0, K):
-                #print('j : ', j)
-                #print('t : ', t1)
-                #print('M2 : ', M2)
                 M2[t1][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
         Y2[i] = M2
 
@@ -145,36 +164,33 @@ def solve(Mat, lines, col):
     print('X : ', X)
     print('Y2 : ', Y2)
     print('Z2 : ', Z2)
-    #print('Y ', Y)
-    #print('Z ', Z)
-    #print('Y2 ', Y2)
     obj = LinExpr();
     obj = 0
-    for i in range(N):
-        for j in range(K):
+    for i in range(0,N):
+        for j in range(0,K):
             obj += 1 * X[i][j]
     m.setObjective(obj, GRB.MINIMIZE)
 
     s = 0
 #    print('Y : ', Y)
     #contrainte sur les j
-    for i in range(N):
+    for i in range(0,N):
         Yi = Y2[i]
         for t in range(len(lines[i])):
             s = 0
             yt= Yi[t]
             #print('yt :' , yt)
-            for j in range(K):
+            for j in range(0,K):
                 s += yt[j]
-            m.addConstr(s <= 1,'contrainte unicité > y ' + str(t))
+            v = m.addConstr(s <= 1,'contrainte unicité > y ' + str(t))
             m.addConstr(s >= 1,'contrainte unicité < y ' + str(t))
 
-    for j in range(K):
+    for j in range(0,K):
         Zj = Z2[j]
         for t in range(0, len(col[j])):
             s = 0
             zt= Zj[t]
-            for i in range(N):
+            for i in range(0,N):
                 s += zt[i]
             print('unicité s : ', s)
             m.addConstr(s <= 1,'contrainte unicité > z ' + str(t))
@@ -183,17 +199,24 @@ def solve(Mat, lines, col):
     #contraintes sur le pose bloc ligne
     for i in range(0, N):
         Yi = Y2[i]
+        lc = lines[i]
         for t in range(0,len(lines[i])):
             yt = Yi[t]
-            st = (lines[i])[t]
-            for j in range(0, K):
+            st = lc[t]
+            start = sum([lc[p] + 1 for p in range(0, t)])
+            end = K - st - sum([lc[q] + 1 for q in range(t + 1, len(lc))])
+            #normalement N = 1 pour le test2 par 3 ...
+            print('N : ', N)
+            print('K : ', K)
+            print('start : ', start)
+            print('end :', end)
+            print('taille ligne : ', len(lines[i]))
+            for j in range(start, end):
+                print('j : ', j)
+                print('Yt : ', yt)
                 s = yt[j]
-                for k in range(j,st):
+                for k in range(j, j + st):
                     for prime in range(t+1, len(lines[i])):
-                        print('i : ', i)
-                        print('k : ', k)
-                        print('prime', prime)
-                        print('Y2i', Y2[i])
                         s += (Y2[i][prime][j])
                 print('s : ' ,s)
                 #j'ai une contrainte pour chaque i et chaque j
@@ -204,9 +227,12 @@ def solve(Mat, lines, col):
     #contraintes sur le pose bloc ligne
     for j in range(0, K):
         Zj = Z2[j]
+        cc = col[j]
         for t in range(0,len(col[j])):
-            st = (col[j])[t]
+            st = cc[t]
             zt = Zj[t]
+            start = sum([cc[p] +1 for p in range(0, t)])
+            end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(cc))])
             for i in range(0, N):
                 s = zt[i]
                 for k in range(i,i+col[j]):
@@ -217,7 +243,8 @@ def solve(Mat, lines, col):
                 s = 0
                 
 
-    #A revoir
+    #Actuellement, le prg pose tous les bloc sur la meme case !
+    #C'est cette contrainte qui provoque le bug
     for i in range(0, N):
         lc = lines[i]
         Yi = Y2[i]
@@ -225,70 +252,79 @@ def solve(Mat, lines, col):
             yt = Yi[t]
             ytPlus = get_list(Yi, t+1)
             #ytPlus = Yi.get(t+1, None)      
-            st = lines[i][t]
+            st = lc[t]
             s = 0
+            #start = sum([lc[p] + 1 for p in range(0, t)])
+            #end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(lc))])
             for j in range(0, K):
-                s += yt[i][j]
-            if ytPlus is not None:
-                for k in range(j, min(j + st,K)):
-                    print('i :',i)
-                    print('k : ', k)
-                    print('st : ', st)
-                    print('yt+[i]', yt[i])
-                    s += ytPlus[i][k]
+                s += yt[j]
+                if ytPlus is not None:
+                    for k in range(j, min(j + st+1,K-1)):
+                        print(' k ' , k)
+                        s += ytPlus[k]
+                print('s overlap : ', s)
                 m.addConstr(s <= 1 , 'contrainte taille bloc Y')
                 #reset s
                 s = 0
 
-    #A revoir
+    #C'est cette contrainte qui provoque le bug
     for j in range(0, K):
         cc = col[j]
+        Zj = Z2[j]
         for t in range(0, len(cc)):
-            zt = Z[t]
-            ztPlus = Z.get(t+1, None)
+            zt = Zj[t]
+            ztPlus = get_list(Zj, t+1)
             st = col[j][t]
             s = 0
             for i in range(0, N):
-                s += zt[j][i]
+                s += zt[i]
                 if ztPlus is not None:
-                    for k in range(i, min(i + st+1,N)):
+                    #normalement on peut enlever le min quand la contrainte debut/fin bloc implémenté
+                    for k in range(i, min(i + st+1,N-1)):
                         s += ztPlus[i][k]
                 m.addConstr(s <= 1 , 'contrainte taille bloc Z')
 
-    #A revoir avec Y2
-    for i in range(N):
+    for i in range(0,N):
         lc = lines[i]
+        Yi = Y2[i]
         for t in range(0, len(lc)):
             s = 0
+            #t eme bloc
             st = lc[t]
             print('st : ' ,st)
-            yt = Y[t]
+            yt = Yi[t]
             for j in range(0, K):
                 for k in range(j, st):
                     s += X[i][k]
-                s -= (yt[i][j] * st)
+                s -= (yt[j] * st)
                 print('s : ', s)
                 m.addConstr(s >= 0, 'nb case bloc Y')
                 #reset de s
                 s = 0
 
-    #A revoir avec Z2
-    for j in range(K):
+    for j in range(0,K):
         cc = col[j]
+        Zj = Z2[j]
         for t in range(0, len(cc)):
             s = 0
             st = cc[t]
-            zt = Z[t]
+            zt = Zj[t]
             print('st : ', st)
             print('col : ', col)
             for i in range(0, N):
                 for k in range(i, st):
                     s += X[k][j]
-                s -= (zt[j][i] * st)
+                s -= (zt[i] * st)
                 print('contrainte z : ', s)
                 m.addConstr(s >= 0, 'nb case bloc Z')
                 #reset s
                 s = 0
+
+#    for i in range(0,N):
+#        lc = lines[i]
+#        for t in range(0, len(lc)):
+#            phi = sum([lc[k] for k in range(0, t)])
+            
     
     m.optimize()            
     print('X')
@@ -296,12 +332,10 @@ def solve(Mat, lines, col):
         print(xi)
 
     print('Y')
-    for keys in Y.keys():
-        print(Y[keys])
+    print(Y2)
 
     print('Z')
-    for keys in Z.keys():
-        print(Z[keys])
+    print(Z2)
 
     A = X_to_array(X,K)
     print('A : ', A)
@@ -317,6 +351,6 @@ def main():
     col = np.array([[1],[1],[1]])
     N, K = Mat.shape
     #solve(Mat, lines, col)
-    test_overlap()
+    test_simple4()
 
 main()

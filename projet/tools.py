@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,13 +17,13 @@ def toLatexTab(dico, listKey=None,n=None):
     listKey = list(listKey)
     if n is None:
         n = len(dico[listKey[0]])
-    nkey = len(dico.keys())
+    nkey = len(listKey)
     allignement = '|c|'* (nkey + 1)
     s = '\\begin{tabular}{' + allignement + '}\n'
     s += '\\hline\n'
     #Header
     line = 'instances & '
-    for key in dico:
+    for key in listKey:
         line += str(key) + ' & '
     line = line[:-2] + "\\\ " + '\n'
     s += line
@@ -42,13 +42,13 @@ def toLatexTab(dico, listKey=None,n=None):
 #    for i in range(n):
         
 
-def draw_graphe(L1, L2, xlabel="Nombre de cases à coloriées", ylabel="Temps de calcul"):
+def draw_graphe(L1, L2, xlabel="Nombre de cases a coloriees", ylabel="Temps de calcul"):
     plt.plot(L1, L2)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.show()
 
-def multiple_draw_graphe(M, Ltime, xlabel="Nombre de cases à coloriées", ylabel="Temps de calcul", L_label=[]):
+def multiple_draw_graphe(M, Ltime, xlabel="Nombre de cases a coloriees", ylabel="Temps de calcul", L_label=[]):
     i = 0
     if L_label != []:
         while len(L_label) < len(M):

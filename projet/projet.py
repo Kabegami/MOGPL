@@ -17,7 +17,7 @@ cpt = 0
 #set_debug(boolean)
 
 def save(data, fichier):
-    pickle.dump(data, open(fichier, 'wb'))
+    pickle.dump(data, open(fichier, 'wb'), protocol=2)
     print('Données sauvegardées avec succès !')
 
 def load(fichier):
@@ -217,11 +217,11 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
     
 
 if __name__ == "__main__":
-    lines, col ,Mat = read_file('instances/8.txt')
-    print('lines', lines)
-    A = coloration(Mat, lines, col)
-    print('A : ', A)
-    draw(A)
+    #lines, col ,Mat = read_file('instances/8.txt')
+    #print('lines', lines)
+    #A = coloration(Mat, lines, col)
+    #print('A : ', A)
+    #draw(A)
     #dico = stat(0,10,saveData=True)
     dico = load('data')
     print('dico : ', dico)
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     tools.draw_graphe(L1,L2)
     q = tools.verifComplexite(L1,L2)
     print('complexité : ', q)
-    s = tools.toLatexTab(dico)
+    s = tools.toLatexTab(dico,['nbCases','time'])
     print(s)
     
     #print('temps de calcul des clefs : ', memo_id.keyTime)
