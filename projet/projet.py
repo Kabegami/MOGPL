@@ -95,7 +95,7 @@ def T2(j, l, S, line):
             return T2(j-1, l, S,line[:-1])
            
         return T2(j-sl-1, l-1, S, line[:j-sl]) or T2(j-1, l, S,line[:-1])
-
+    
 def color_case(i, S, vecteur):
     """ on fait un copie du vecteur sous forme de tuple pour manipuler uniquement des tuples dans T2 """
     if vecteur[i] != -1:
@@ -217,11 +217,11 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
     
 
 if __name__ == "__main__":
-    lines, col ,Mat = read_file('instances/0.txt')
+    lines, col ,Mat = read_file('instances/8.txt')
     print('lines', lines)
-    #A = coloration(Mat, lines, col)
-    #print('A : ', A)
-    #draw(A)
+    A = coloration(Mat, lines, col)
+    print('A : ', A)
+    draw(A)
     #dico = stat(0,10,saveData=True)
     dico = load('data')
     print('dico : ', dico)
