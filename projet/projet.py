@@ -222,8 +222,8 @@ if __name__ == "__main__":
     #A = coloration(Mat, lines, col)
     #print('A : ', A)
     #draw(A)
-    #dico = stat(0,10,saveData=True)
-    dico = load('data')
+    dico = stat(0,10,saveData=True)
+    #dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']

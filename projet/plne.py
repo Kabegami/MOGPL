@@ -85,34 +85,6 @@ def solve(Mat, lines, col):
     Z = dict()
     listContraintes = []
     
-    #on verra apres
-    #startLine = []
-#    for i in range(len(lines)):
-#        Lcontrainte = lines[i]
-#        taille = len(lines[i])
-#        line = []
-#        for j in range(1,taille):
-#            line.append(Lcontrainte[j] + 1)
-#        startLine.append(line)
-
-    #stopLine = []
-    #for i in range(len(lines)):
-    #    Lcontrainte = lines[i]
-    #    taille = len(lines[i])
-    #    line = []
-    #    for l in range(0,taille):
-    #        s = N - lines[l]
-    #       for n in range(l+1, taille):
-    #            s = -lines[n] - 1
-    #        print('s : ',s)
-    #        line.append(s)
-    #    stopLine.append(line)
-#    print('startLine :')
-#    print(startLine)
-#    print('stop line')
-#    print(stopLine)
-
-
     Y2 = dict()
     for i in range(0, N):
         M2 = Y2.get(i, [[0 for j in range(0,K)] for t in range(0,len(lines[i]))])
@@ -137,28 +109,6 @@ def solve(Mat, lines, col):
         X.append(T)
     
             
-    
-    #for i in range(N):
-#        b = True
-#        T = []
-#        for j in range(K):
-#            T.append(m.addVar(vtype=GRB.BINARY, lb=0, name='X'+str(i)+str(j)))
-#            for t1 in range(0,len(lines[i])):
-#                print('t1', t1)
-#                M2 = Y2.get(i, [[0 for j in range(0,K)] for t in range(0,len(lines[i]))])
-#                #print('M2 : ', M2)
-#                M = Y.get(t1, [[0 for o in range(K)] for p in range(N)])
-#                M[i][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
-#                M2[t1][j] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Y[{}]{}{}'.format(t1, i, j)))
-#                #print('i : {},j : {},t : {}'.format(i,j,t1))
-#                #print('M : ', M)
-#                Y[t1] = M
-#                Y2[i] = M2
-#            for t2 in range(0,len(col[j])):
-#                M = Z.get(t2, [[0 for q in range(N)] for z in range(K)])
-#                M[j][i] = (m.addVar(vtype=GRB.BINARY, lb=0, name='Z[{}]{}{}'.format(t2, i, j)))
-#                Z[t2] = M
-#        X.append(T)
         
     m.update()
     print('X : ', X)
@@ -182,8 +132,8 @@ def solve(Mat, lines, col):
             #print('yt :' , yt)
             for j in range(0,K):
                 s += yt[j]
-            v = m.addConstr(s <= 1,'contrainte unicité > y ' + str(t))
             m.addConstr(s >= 1,'contrainte unicité < y ' + str(t))
+            m.addConstr(s <= 1,'contrainte unicité < y ' + str(t))
 
     for j in range(0,K):
         Zj = Z2[j]
@@ -193,36 +143,9 @@ def solve(Mat, lines, col):
             for i in range(0,N):
                 s += zt[i]
             print('unicité s : ', s)
-            m.addConstr(s <= 1,'contrainte unicité > z ' + str(t))
             m.addConstr(s >= 1,'contrainte unicité < z ' + str(t))
+            m.addConstr(s <= 1,'contrainte unicité < z ' + str(t))
 
-    #contraintes sur le pose bloc ligne
-    for i in range(0, N):
-        Yi = Y2[i]
-        lc = lines[i]
-        for t in range(0,len(lines[i])):
-            yt = Yi[t]
-            st = lc[t]
-            start = sum([lc[p] + 1 for p in range(0, t)])
-            end = K - st - sum([lc[q] + 1 for q in range(t + 1, len(lc))])
-            #normalement N = 1 pour le test2 par 3 ...
-            print('N : ', N)
-            print('K : ', K)
-            print('start : ', start)
-            print('end :', end)
-            print('taille ligne : ', len(lines[i]))
-            for j in range(start, end):
-                print('j : ', j)
-                print('Yt : ', yt)
-                s = yt[j]
-                for k in range(j, j + st):
-                    for prime in range(t+1, len(lines[i])):
-                        s += (Y2[i][prime][j])
-                print('s : ' ,s)
-                #j'ai une contrainte pour chaque i et chaque j
-                m.addConstr(s <= 1, 'contrainte pose bloc lignes Y[{}]{}{}'.format(t,i,j))
-                #reset s
-                s = 0
     
     #contraintes sur le pose bloc ligne
     for j in range(0, K):
@@ -231,14 +154,16 @@ def solve(Mat, lines, col):
         for t in range(0,len(col[j])):
             st = cc[t]
             zt = Zj[t]
-            start = sum([cc[p] +1 for p in range(0, t)])
-            end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(cc))])
+            ztPlus = get_list(Zj, t+1)
+            #start = sum([cc[p] +1 for p in range(0, t)])
+            #end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(cc))])
             for i in range(0, N):
                 s = zt[i]
-                for k in range(i,i+col[j]):
-                    for prime in range(t+1, len(col[j])):
-                        s += (Z2[j][prime][i])
-                m.addConstr(s <= 1, 'contrainte pose bloc lignes Z[{}]{}{}'.format(t,i,j))
+                if ztPlus is not None:
+                    for k in range(i,min(i+st,N-1)):
+                        s += ztPlus[k]
+                print('overlap Z : ', s)
+                m.addConstr(s <= 1, 'contrainte overlap col Z[{}]{}{}'.format(t,i,j))
                 #reset s
                 s = 0
                 
@@ -254,8 +179,6 @@ def solve(Mat, lines, col):
             #ytPlus = Yi.get(t+1, None)      
             st = lc[t]
             s = 0
-            #start = sum([lc[p] + 1 for p in range(0, t)])
-            #end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(lc))])
             for j in range(0, K):
                 s += yt[j]
                 if ytPlus is not None:
@@ -263,7 +186,7 @@ def solve(Mat, lines, col):
                         print(' k ' , k)
                         s += ytPlus[k]
                 print('s overlap : ', s)
-                m.addConstr(s <= 1 , 'contrainte taille bloc Y')
+                m.addConstr(s <= 1 , 'contrainte overlap bloc Y')
                 #reset s
                 s = 0
 
@@ -280,7 +203,7 @@ def solve(Mat, lines, col):
                 s += zt[i]
                 if ztPlus is not None:
                     #normalement on peut enlever le min quand la contrainte debut/fin bloc implémenté
-                    for k in range(i, min(i + st+1,N-1)):
+                    for k in range(i, min(i + st+1,N)):
                         s += ztPlus[i][k]
                 m.addConstr(s <= 1 , 'contrainte taille bloc Z')
 
@@ -288,20 +211,21 @@ def solve(Mat, lines, col):
         lc = lines[i]
         Yi = Y2[i]
         for t in range(0, len(lc)):
-            s = 0
             #t eme bloc
             st = lc[t]
             print('st : ' ,st)
             yt = Yi[t]
             for j in range(0, K):
-                for k in range(j, st):
-                    s += X[i][k]
-                s -= (yt[j] * st)
-                print('s : ', s)
+                sx = 0
+                for k in range(j, min(j + st, K)):
+                    sx += X[i][k]
+                s = (yt[j] * st) - sx
+                print('nb block : ', s)
                 m.addConstr(s >= 0, 'nb case bloc Y')
                 #reset de s
                 s = 0
 
+    #nb bloc
     for j in range(0,K):
         cc = col[j]
         Zj = Z2[j]
@@ -312,10 +236,11 @@ def solve(Mat, lines, col):
             print('st : ', st)
             print('col : ', col)
             for i in range(0, N):
-                for k in range(i, st):
-                    s += X[k][j]
-                s -= (zt[i] * st)
-                print('contrainte z : ', s)
+                sx = 0
+                for k in range(i, min(i + st, N)):
+                    sx += X[k][j]
+                s = (zt[i] * st) - sx
+                print('nb block z : ', s)
                 m.addConstr(s >= 0, 'nb case bloc Z')
                 #reset s
                 s = 0
@@ -331,21 +256,21 @@ def solve(Mat, lines, col):
             end = K - st - sum([lc[q] + 1 for q in range(t + 1, len(lc))])
             for j in range(0, start):
                 m.addConstr(yt[j] < 1, 'Y cc start')
-            for j in range(K, end,-1):
+            for j in range(K-1, end,-1):
                 m.addConstr(yt[j] < 1, 'Y cc stop')
 
     #contrainte start
     for j in range(0,K):
         cc = col[j]
         Zj = Z2[j]
-        for t in range(0, len(lc)):
+        for t in range(0, len(cc)):
             st = cc[t]
             start = sum([cc[p] + 1 for p in range(0, t)])
             end = N - st - sum([lc[q] + 1 for q in range(t + 1, len(cc))])
             zt = Zj[t]
             for i in range(0, start):
                 m.addConstr(zt[i] < 1, 'Z cc start')
-            for i in range(K, end,-1):
+            for i in range(N-1, end,-1):
                 m.addConstr(zt[i] < 1, 'Z cc stop')
     
 
@@ -354,8 +279,8 @@ def solve(Mat, lines, col):
 #        for t in range(0, len(lc)):
 #            phi = sum([lc[k] for k in range(0, t)])
             
-    
-    m.optimize()            
+    m.optimize()
+#    m.ComputeIIS();
     print('X')
     for xi in X:
         print(xi)
@@ -372,14 +297,15 @@ def solve(Mat, lines, col):
     
 
 def main():
-    #lines, col, Mat = read_file('instances/11.txt')
+    lines, col, Mat = read_file('instances/11.txt')
     #================================
     #      TEST
-    Mat = np.array([[-1,-1,-1],[-1,-1,-1]])
-    lines = np.array([[2],[1]])
-    col = np.array([[1],[1],[1]])
-    N, K = Mat.shape
-    #solve(Mat, lines, col)
-    test_simple4()
+    #Mat = np.array([[-1,-1,-1],[-1,-1,-1]])
+    #lines = np.array([[2],[1]])
+    #col = np.array([[1],[1],[1]])
+    #N, K = Mat.shape
+    #A = solve(Mat, lines, col)
+    #draw(A)
+    test_simple1()
 
 main()

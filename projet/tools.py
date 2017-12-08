@@ -78,3 +78,18 @@ def verifComplexite(L1, L2):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
     return slope
 
+def lireFichier(nom, separation_char='#\n'):
+	S = []
+	i = 0
+	l = 0
+	fichier = open(nom, "r")
+	for ligne in fichier:
+		if ligne != separation_char:
+			S.append(list(map(int, ligne.split())))
+			i += 1
+		else:
+			l = i
+	fichier.close()
+
+	# Liste de toutes les sequences, nbr de ligne, nbr de colonne
+	return S, l, len(S)-l
