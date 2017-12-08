@@ -43,18 +43,18 @@
 \vspace*{\drop}
 
 %%% Document title
-{\Huge\bfseries Titre du document}\\[\baselineskip]
+{\Huge\bfseries Projet : Un problème de tomographie discrète}\\[\baselineskip]
 
 %%% Document sub-title, can be repeated
-{\large\scshape Sous-titre du document}\\[\baselineskip]
+{\large\scshape MOGPL : Modélisation et Optimisation par les Graphes et la Programmation Linéaire}\\[\baselineskip]
 
 %%% Center text
 \begin{vplace}[0.7]
-    \textit{Texte central}
+    \textit{}
 \end{vplace}
 
 %%% Authors
-{\scshape Realisé par\\ Etudiant 1\\ et\\ Etudiant 2}\par
+{\scshape Realisé par\\ BECIRSPAHIC Lucas\\ et\\ ADOUM Robert}\par
 
 \vspace*{2\drop}
 \endgroup}
@@ -131,6 +131,9 @@
  	La relation de récurrence permettant de calculer $T(j,l)$ est la suivante:\\\\
  	$T(j, l) = T(j-(s_{l}+1),l-1)$\\\\
  	En effet si l'on se trouve à la case j et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les coloration de $s_{l-1} et s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$
+   
+
+        
 
 \begin{tabular}{|c||c||c|}
 \hline
@@ -161,9 +164,16 @@ instances & nbCases & time \\
 \end{tabular}
 
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\linewidth]{../images/dynamique_instance9.png}
+  \caption{Grille de l'instance numéro 9}
+  \label{fig:instance9}
+\end{figure}
 
-
-
+\textbf{Question 9} En appliquant notre programme sur l'instance 11, on observe qu'en dépit de la petite taille de l'instance notre algorithme ne colorie rien. En effet quand une case peut être colorié à la fois en blanc et en noir notre algorithme ne fais rien. Si la couleur d'une case ne peut être déterminée de manière exacte grace aux contraintes elle ne sera pas colorié. Ce qui explique pourquoi notre algorithme ne colorie pas correctement l'instance 11.
+\\
+Une solution à ce problème est d'implémenter un algorithme de backtracking qui une fois la coloration effectuée, observe toutes les cases non coloriées et leur affecte 0 et 1 arbirtrairement puis on relance coloration avec la nouvelle grille. On réitère jusqu'a optenir une grille complète (dans ce cas fin de l'algorithme) ou une grille insolvabe. Si le grille ne peut pas être résoulue , on retourne jusqu'a l'affectation la plus récente et on prend l'autre couleur. On notera que cette algorithme prend beaucoup plus de temps pour résoudre les grilles, une autre approche est d'utiliser la PLNE.
 
 
  	

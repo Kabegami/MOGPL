@@ -188,6 +188,19 @@ def draw(Matrice):
     plt.colorbar()
     plt.show()
 
+def build_images(start=0, end=10, dirname='instances', dirSave='images', fname='dynamique'):
+    for i in range(start, end+1):
+        filename= dirname + '/'+str(i)+'.txt'
+        lines, col, Mat = read_file(filename)
+        A = coloration(Mat, lines, col)
+        plt.figure()
+        plt.imshow(A, cmap='binary', interpolation='nearest')
+        #plt.colorbar()
+        if not os.path.exists(dirSave):
+            os.mkdir(dirSave)
+        name = dirSave + '/' + fname + '_instance' + str(i)
+        plt.savefig(name)
+
     
 def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
     dico_stat = dict()
@@ -219,19 +232,20 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 if __name__ == "__main__":
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
+    build_images(15,16)
     #A = coloration(Mat, lines, col)
     #print('A : ', A)
     #draw(A)
-    dico = stat(0,10,saveData=True)
-    #dico = load('data')
+    #dico = stat(0,10,saveData=True)
+    dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
     tools.draw_graphe(L1,L2)
     q = tools.verifComplexite(L1,L2)
     print('complexité : ', q)
-    s = tools.toLatexTab(dico,['nbCases','time'])
-    print(s)
+    #s = tools.toLatexTab(dico,['nbCases','time'])
+    #print(s)
     
     #print('temps de calcul des clefs : ', memo_id.keyTime)
     
