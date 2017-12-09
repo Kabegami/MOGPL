@@ -241,7 +241,9 @@ def solve(S, N, M, timeout = False):
     model.update()
     
     contrainte(X, Y, Z, N, M, Sligne, Scolonne, model)
-    
+    if timeout:
+            model.setParam('TimeLimit', 2*60)
+            
     model.optimize()
     for yi in Y:
         print(Y[yi])
@@ -253,7 +255,7 @@ def solve(S, N, M, timeout = False):
     #print('A : ', A)
     #draw(A)
 
-def compute_instance(start=11, end=16):
+def compute_instance(start=11, end=16,timeout=False):
         for i in range(start, end+1):
                 filename = 'instances/' + str(i) + '.txt' 
                 dataName = 'plneData/' +'instance' + str(i)
@@ -266,9 +268,9 @@ def compute_instance(start=11, end=16):
         
 		
 def main():
-    compute_instance(11,15)
-    #S, N, M = lireFichier('instances/13.txt')
-    #L = solve(S,N,M)
+    compute_instance(0,10)
+    #S, N, M = lireFichier('instances/16.txt')
+    #L = solve(S,N,M,True)
     #print(L)
 
 
