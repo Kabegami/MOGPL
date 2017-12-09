@@ -29,10 +29,11 @@ def to_array(X, N, M):
         A = np.zeros((N,M))
         for keys in X.keys():
                 v = int(X[keys].x)
-                print('V : ', v)
+                #print('V : ', v)
                 i,j = keys
                 A[i][j] = v
         return A
+
 ############################################################################################################
 ############################################################################################################
 ############################################################################################################
@@ -81,27 +82,48 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
 
         #Cette contrainte empeche le bloc t+1 d'etre place mais pas les autre (t+2 ect)
         #faire une contrainte qui empeche les bloc Yi,j t < Yi,j t + i pour tous i
+#         for i in range(N):
+#                 for t in range(0,len(Sligne[i])-1):
+#                         for j in range(0, M):
+#                                 #print('boucle des j')
+#                                 CY = [Y[i,j,t]]
+#                                 coef = [1]
+#                                 for prime in range(t+1, len(Sligne[i])):
+# #                                        CY = [Y[i,j,t]]
+# #                                        coef = [1]
+#                                         for k in range(j, min(j + Sligne[i][t]+1, M)):
+#                                                    #print('j == k ', j == k)
+#                                                    CY.append(Y[i,k, prime])
+#                                                    coef.append(1)
+#                                         model.addConstr(LinExpr(coef, CY), '<=', 1, name = "decalage necessaire y")
+
         for i in range(N):
-                for t in range(0,len(Sligne[i])-1):
-                        for j in range(0, M):
-                                print('boucle des j')
-                                CY = [Y[i,j,t]]
-                                coef = [1]
-                                for k in range(j, min(j + Sligne[i][t]+1, M)):
-                                        print('j == k ', j == k)
-                                        CY.append(Y[i,k, t+1])
-                                        coef.append(1)
-                                model.addConstr(LinExpr(coef, CY), '<=', 1, name = "decalage necessaire y")
+                for t in range(0, len(Sligne[i])-1):
+                        for j in range(M):
+                               CY = [Y[i,j,t]]
+                               coef = [1]
+                               for k in range(0, min(j+Sligne[i][t]+1, M)):
+                                       CY.append(Y[i,k,t+1])
+                                       coef.append(-1)
+                               model.addConstr(LinExpr(coef, CY), '<=', 1, name='decalage nececessaire y')
+                               model.addConstr(LinExpr(coef, CY), '>=', 1, name='decalage nececessaire y')
+                               
+                                
                         
         for j in range(M):
                 for t in range(len(Scolonne[j])-1):
                         for i in range(N):
                                 CY = [Z[i,j,t]]
                                 coef = [1]
-                                for k in range(i, min(i + Scolonne[j][t]+1, N)):
-                                        CY.append(Z[k,j, t+1])
-                                        coef.append(1)
-                                model.addConstr(LinExpr(coef, CZ), '<=', 1, name = "decalage necessaire z")
+                                for prime in range(t+1, len(Scolonne[j])):
+#                                        CY = [Z[i,j,t]]
+#                                        coef = [1]
+                                        for k in range(i, min(i + Scolonne[j][t]+1, N)):
+                                                CY.append(Z[k,j, t+1])
+                                                coef.append(1)
+                                        print('CZ : ', CY)
+                                        print('coef : ', coef)
+                                        model.addConstr(LinExpr(coef, CZ), '<=', 1, name = "decalage necessaire z")
 
     
 			
@@ -127,6 +149,8 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
                         coef.append(1)
                 model.addConstr(LinExpr(coef, CZ), '<=', b, name = "il ne peut pas avoir plus de case noires")
 
+	################################################################################
+	################################################################################                
         
         for i in range(N):
                 for j in range(M):
@@ -134,7 +158,7 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
                                 CY = [Y[i,j,t]]
                                 coef = [1]
                                 k = j + Sligne[i][t]
-                                print('k : ', k)
+                                #print('k : ', k)
                                 if k < M:
                                         CY.append(X[i,k])
                                         coef.append(1)
@@ -143,7 +167,7 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
         for j in range(M):
                 for t in range(len(Scolonne[j])):
                         for i in range(N):
-                                print('i : {}, j : {}'.format(i,j))
+                                #print('i : {}, j : {}'.format(i,j))
                                 CY = [Z[i,j,t]]
                                 coef = [1]
                                 k = i + Scolonne[j][t], N-1
@@ -180,7 +204,11 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
                                 coef.append(-Scolonne[j][t])
                                 model.addConstr(LinExpr(coef, CZ), '>=', 0, name = "cases noires z")
                                 
-        
+                                
+
+        ################################################################################
+	################################################################################
+
 
 
 	model.update()
@@ -211,10 +239,10 @@ def solve(S, N, M):
         print(Z[zi])        
     A = to_array(X, N, M)
     print('A : ', A)
-    draw(A)
+    #draw(A)
 		
 def main():
-    S, N, M = lireFichier('instances/0.txt')
+    S, N, M = lireFichier('instances/1.txt')
     L = solve(S,N,M)
     print(L)
 
