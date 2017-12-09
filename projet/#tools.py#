@@ -81,6 +81,7 @@ def verifComplexite(L1, L2):
 def build_plne_images(start=11, stop=16,dataDir='plneData'):
     for i in range(start, stop+1):
         fname = dataDir + '/' + 'instance'+str(16)
+        
 
 def lireFichier(nom, separation_char='#\n'):
 	S = []

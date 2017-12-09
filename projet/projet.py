@@ -200,7 +200,18 @@ def build_images(start=0, end=10, dirname='instances', dirSave='images', fname='
             os.mkdir(dirSave)
         name = dirSave + '/' + fname + '_instance' + str(i)
         plt.savefig(name)
-
+        
+def build_plne_images(start=11, stop=16, dataDir='plneData', dirSave='images', prefix='plne'):
+    for i in range(start, stop+1):
+        fname = dataDir + '/' + 'instance'+str(i)
+        A = load(fname)
+        plt.figure()
+        plt.imshow(A, cmap='binary', interpolation='nearest')
+        if not os.path.exists(dirSave):
+            os.mkdir(dirSave)
+        name = dirSave + '/' + prefix + '_instance' + str(i)
+        plt.savefig(name)
+        
     
 def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
     dico_stat = dict()
@@ -232,7 +243,8 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 if __name__ == "__main__":
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
-    build_images(15,16)
+    #build_images(15,16)
+    build_plne_images(11,13)
     #A = coloration(Mat, lines, col)
     #print('A : ', A)
     #draw(A)
