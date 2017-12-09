@@ -211,6 +211,25 @@ def build_plne_images(start=11, stop=16, dataDir='plneData', dirSave='images', p
             os.mkdir(dirSave)
         name = dirSave + '/' + prefix + '_instance' + str(i)
         plt.savefig(name)
+
+def load_time(start=11, end=16, dataDir='plneData'):
+    L = []
+    for i in range(start, end+1):
+        name = dataDir + '/' + 'time' + str(i)
+        if os.path.exists(name):
+            t = load(name)
+            L.append(t)
+    return L
+
+def robust_time_list(L,start=1,end=16, default='timeout'):
+    R = []
+    for i in range(start, end+1):
+        try:
+            elem = L[i]
+            R.append(elem)
+        except IndexError:
+            R.append(default)
+    return R
         
     
 def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
@@ -244,7 +263,14 @@ if __name__ == "__main__":
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
     #build_images(15,16)
-    build_plne_images(11,13)
+    #build_plne_images(0,8)
+    L = load_time(0,8)
+    #d = {'time': L}
+    #s= tools.toLatexTab(d,start=11)
+    #print('S : ', s)
+    #print('L : ', L)
+    #L = robust_time_list(L,0,10,1000)
+#    d = {'plne-time' : L}
     #A = coloration(Mat, lines, col)
     #print('A : ', A)
     #draw(A)
@@ -253,7 +279,14 @@ if __name__ == "__main__":
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
-    tools.draw_graphe(L1,L2)
+    #d['dynamique-time'] = L2
+
+    #s = tools.toLatexTab(d,start=0)
+    #print(s)
+    print('L : ', L)
+    print('L2 : ', L2)
+    tools.multiple_draw_graphe([L,L2[:9]],L1[:9], L_label=['PLNE','programation dynamique'])
+    #tools.draw_graphe(L1,L2)
     q = tools.verifComplexite(L1,L2)
     print('complexité : ', q)
     #s = tools.toLatexTab(dico,['nbCases','time'])

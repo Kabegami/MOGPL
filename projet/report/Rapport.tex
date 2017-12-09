@@ -118,14 +118,16 @@
     \textbf{Question 1:}\\\\ Si l’on a calculé tous les $T(j, l)$, pour savoir si il est possible de colorier la ligne $l_{i}$ entière avec la séquence entière  il suffit de de regarder $T(m-1, k)$, si ce dernier vaut vrai alors il est possible de colorier la ligne entière avec la séquence entière. Si il vaut faux alors ce n'est pas possible.\\\\
     \textbf{Question 2:}
     \begin{itemize}
-		\item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai
+    \item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai
+      \label{i1}
 		\item Cas $l \geqslant 1$, $j < s_{l}-1$: Faux
 		\item Cas $l \geqslant 1$, $j = s_{l}-1$:
 		\begin{itemize}
 			\item Si $l = 1$ alors Vrai 
 			\item Si $l \neq 1$ alors Faux
 		\end{itemize}
-	\end{itemize}
+    \end{itemize}
+    justification : (\ref{i1}) Si il n'y a pas de bloc à poser, alors un coloriage est toujours possible.
  	
  	\textbf{Question 3:}\\\\
  	La relation de récurrence permettant de calculer $T(j,l)$ est la suivante:\\\\
@@ -184,12 +186,14 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
     - $y^{t}_{ij}$ vaut 1 si le $t_{ieme}$ bloc de la ligne $l_{i}$ commence à la case (i, j) et 0 sinon.\\\\
     - $z^{t}_{ij}$ vaut 1 si le $t_{ieme}$ bloc de la colonne $c_{j}$ commence à la case (i, j) et 0 sinon.\\\\
     Par conséquent on a : $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} = s_{t}$\\ Et donc $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} = y^{t}_{ij} \times s_{t} $ \\ Par conséquent la condition est: $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}  $ \\ Avec le même raisonnement on a pour les colonnes: $\sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $\\
-    \textbf{Question 11:}\\\\On a: $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} = 0$\\ et $y^{t}_{ij} = 0 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \in \lbrace 0 , 1\rbrace$\\
-    Et donc la condition est: $y^{t}_{ij} + \sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \leq 1$\\
-    Avec le même raisonnement on a pour les colonnes: $z^{t}_{ij} + \sum \limits_{{k=i}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$\newpage
+    \textbf{Question 11:}\\\\
+    On cherche à exprimer une contrainte qui empeche de poser un bloc t+1 avant que le bloc t soit posé c'est à dire : 
+    $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} = 0$\\ et $y^{t}_{ij} = 0 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \in \lbrace 0 , 1\rbrace$\\
+    Et donc la condition est: $y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1$\\
+    Avec le même raisonnement on a pour les colonnes: $z^{t}_{ij} + \sum \limits_{{k=0}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$\newpage
     \textbf{Question 12:}\\\\
    
-  Min z = ?\\ 
+  Min z = $\sum \limits_{{i=0, j=0}}^{N, M}x_{i,j}$ \\ 
   $$	
 	s.c\left\{
     \begin{array}{ll}
@@ -197,9 +201,9 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
          
         \sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
         
-        y^{t}_{ij} + \sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \leq 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+        y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
         
-        z^{t}_{ij} + \sum \limits_{{k=i}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+        z^{t}_{ij} + \sum \limits_{{k=0}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
         
         \sum \limits_{{j=0}}^{M-1} y^{t}_{ij} = 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
         
@@ -214,11 +218,76 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
 \right.
 $$
 \\
+
+
 \subsection{2 - Implantation et tests}
 \textbf{Question 13: }\\\\
 (N'oublions pas que j commence à 0 et termine à M-1)\\
-- Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$ . 
+- Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$ .
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|c||c|}
+    \hline
+    instances & time\\ 
+    \hline
+    11 & 0.0006639957427978516 \\ 
+    \hline
+    12 & 117.45809602737427 \\ 
+    \hline
+    13 & 1.6546478271484375 \\ 
+    \hline
+    14 & 0.47141194343566895 \\ 
+    \hline
+    15 & 15.691749095916748 \\ 
+    \hline
+    \end{tabular}
+    \caption{Temps PLNE}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+\begin{tabular}{|c||c||c|}
+\hline
+instances & plne-time & dynamique-time \\ 
+\hline
+0 & 0.0007050037384033203 & 0.0004220008850097656 \\ 
+\hline
+1 & 0.0012221336364746094 & 0.0006170272827148438 \\ 
+\hline
+2 & 2.4385571479797363 & 0.1177520751953125 \\ 
+\hline
+3 & 0.10664486885070801 & 0.09617209434509277 \\ 
+\hline
+4 & 9.278510093688965 & 0.1829090118408203 \\ 
+\hline
+5 & 2.123404026031494 & 0.19921302795410156 \\ 
+\hline
+6 & 120.54762291908264 & 0.5109150409698486 \\ 
+\hline
+7 & 0.5048248767852783 & 0.30011606216430664 \\ 
+\hline
+8 & 1.1952688694000244 & 0.4349830150604248 \\ 
+\hline
+9 & timeout & 5.423044919967651 \\ 
+\hline
+10 & timeout & 8.712966918945312 \\ 
+\hline
+\end{tabular}
+
+\caption{Comparaison des temps pour les 2 methodes}
+  \end{center}
+  \end{figure}
 
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\linewidth]{../graphes/comparaison.png}
+  \caption{Comparaison des deux methodes sur les 8 premières instances}
+  \label{fig:graphes-comparaison}
+\end{figure}
+
+    
      
 \end{document}

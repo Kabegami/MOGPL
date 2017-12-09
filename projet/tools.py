@@ -11,7 +11,7 @@ except:
 import math
 import pickle
 
-def toLatexTab(dico, listKey=None,n=None):
+def toLatexTab(dico, listKey=None,n=None,start=0):
     if listKey is None:
         listKey = dico.keys()
     listKey = list(listKey)
@@ -29,7 +29,7 @@ def toLatexTab(dico, listKey=None,n=None):
     s += line
     s += '\\hline\n'
     for i in range(n):
-        line = str(i) + ' & '
+        line = str(start + i) + ' & '
         for key in listKey:
             data = dico[key]
             #print('data : ', data)
@@ -50,15 +50,16 @@ def draw_graphe(L1, L2, xlabel="Nombre de cases a coloriees", ylabel="Temps de c
 
 def multiple_draw_graphe(M, Ltime, xlabel="Nombre de cases a coloriees", ylabel="Temps de calcul", L_label=[]):
     i = 0
-    if L_label != []:
+    if L_label == []:
+        #on remplit de fot label
         while len(L_label) < len(M):
             L_label.append('')
         for L1 in M:
-            plt.plot(L1, Ltime,label=L_label[i])
+            plt.plot(Ltime, L1,label=L_label[i])
             i += 1
     else:
         for L1 in M:
-            plt.plot(L1, Ltime,label=L_label[i])
+            plt.plot(Ltime, L1,label=L_label[i])
             i += 1
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
