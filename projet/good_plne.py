@@ -249,22 +249,24 @@ def solve(S, N, M, timeout = False):
     for zi in Z:
         print(Z[zi])        
     A = to_array(X, N, M)
-    return A
+    return A, model.Runtime
     #print('A : ', A)
     #draw(A)
 
 def compute_instance(start=11, end=16):
-        for i in range(start, end):
+        for i in range(start, end+1):
                 filename = 'instances/' + str(i) + '.txt' 
                 dataName = 'plneData/' +'instance' + str(i)
+                timeName = 'plneData/' + 'time' + str(i)
                 S,N,M = lireFichier(filename)
-                L = solve(S,N,M)
-                save(L, dataName)
+                A,t = solve(S,N,M)
+                save(A, dataName)
+                save(t, timeName)
                 
         
 		
 def main():
-    compute_instance(11,14)
+    compute_instance(11,15)
     #S, N, M = lireFichier('instances/13.txt')
     #L = solve(S,N,M)
     #print(L)
