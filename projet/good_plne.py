@@ -226,7 +226,7 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
 
 
 
-def solve(S, N, M):
+def solve(S, N, M, timeout = False):
     model = Model("mogpl")
     Sligne, Scolonne = S[:N], S[N:]
     X, Y, Z = variables(N, M, Sligne, Scolonne, model)
@@ -249,13 +249,25 @@ def solve(S, N, M):
     for zi in Z:
         print(Z[zi])        
     A = to_array(X, N, M)
-    print('A : ', A)
+    return A
+    #print('A : ', A)
     #draw(A)
+
+def compute_instance(start=11, end=16):
+        for i in range(start, end):
+                filename = 'instances/' + str(i) + '.txt' 
+                dataName = 'plneData/' +'instance' + str(i)
+                S,N,M = lireFichier(filename)
+                L = solve(S,N,M)
+                save(L, dataName)
+                
+        
 		
 def main():
-    S, N, M = lireFichier('instances/12.txt')
-    L = solve(S,N,M)
-    print(L)
+    compute_instance(11,14)
+    #S, N, M = lireFichier('instances/13.txt')
+    #L = solve(S,N,M)
+    #print(L)
 
 
 if __name__ == '__main__':
