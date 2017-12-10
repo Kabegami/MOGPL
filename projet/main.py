@@ -1,7 +1,8 @@
 from projet import *
 from good_plne import *
 
-def main(methode='dynamique', filename='instances/8.txt'):
+def main(methode='dynamique', dirname='instances/', n='8'):
+    filename = dirname + n + '.txt'
     if methode == 'plne':
         timeout = True
         S,N, M = lireFichier(filename)
@@ -10,22 +11,22 @@ def main(methode='dynamique', filename='instances/8.txt'):
         return L
     if methode == 'dynamique':
         lines, col, M = read_file(filename)
-        A,t  = timeIt(coloration,M, col, lines)
+        A,t  = timeIt(coloration,M,lines,col)
         draw(A)
         print('t : ', t)
         return A
     if methode =='mix':
         timeout = True
         partialDir = 'dynamiqueData/'
-        partialF = partialDir + 'instace' + str(i)
+        partialF = partialDir + 'instance' + n
         S,N, M = lireFichier(filename)
         A = load(partialF)
         L = partial_solve(S,N,M,A,timeout)
-        #draw(L)
+        draw(L)
         return L
 
-A = main()
-print('A')
+A = main('dynamique')
+print(A)
         
         
 
