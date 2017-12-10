@@ -307,17 +307,11 @@ def compute_mix(start=11, end=16,timeout=False, instanceDir='instances/', objDir
                 dataName = objDir + nameI + str(i)
                 timeName = objDir + nameT + str(i)
                 S,N,M = lireFichier(filename)
-                try:
-                        partialF = partialDir + 'instance' + str(i)
-                        A = load(partialF)
-                        L,t = partial_solve(S,N,M,A)
-                        save(A, dataName)
-                        save(t, timeName)
-                except:
-                        print("La grille partielle n'existe pas")
-                        A,t = solve(S,N,M)
-                        save(A, dataName)
-                        save(t, timeName)
+                partialF = partialDir + 'instance' + str(i)
+                A = load(partialF)
+                L,t = partial_solve(S,N,M,A)
+                save(A, dataName)
+                save(t, timeName)
         
 		
 def main():
