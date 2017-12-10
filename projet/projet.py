@@ -290,12 +290,12 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 if __name__ == "__main__":
     #build_plne_images(16,16,dataDir='mixData', dirSave='mixImages', prefix='mix')
     d = dict()
-    save_grid()
+    #save_grid()
     d['plne_time'] = load_time(0,15) + ['timeout']
     d['dynamique_time'] = load_time(0,16, dataDir='dynamiqueData')
     d['nombre de cases'] = get_nbCases(0,16)
     print('d :', d)
-    s = tools.toLatexTab(d,start=0,n=17,listKey=['dynamique_time','plne_time','nombre de cases'])
+    s = tools.toLatexTab(d,start=0,listKey=['dynamique_time','plne_time','nombre de cases'])
     print(s)
     #d['mix_time'] = load_time(11,16,dataDir='mixData')
     #L = load_time(11,16,dataDir='dynamiqueData')
