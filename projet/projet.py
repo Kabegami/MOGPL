@@ -290,17 +290,23 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 if __name__ == "__main__":
     #build_plne_images(16,16,dataDir='mixData', dirSave='mixImages', prefix='mix')
     d = dict()
-    d['plne_time'] = load_time(11,15) + ['timeout']
-    d['mix_time'] = load_time(11,16,dataDir='mixData')
-    L = load_time(11,16,dataDir='dynamiqueData')
-    for i in range(len(L)):
-        d['mix_time'][i] += L[i]
-    d['nombre de cases'] = get_nbCases(11,16)
-    s = tools.toLatexTab(d,start=11,listKey=['plne_time','mix_time','nombre de cases'])
-    L1 = d['plne_time']
-    L1[-1] = max(d['nombre de cases'])
-    tools.multiple_draw_graphe([L1, d['mix_time']],d['nombre de cases'], L_label=['PLNE','mix_time'])
+    save_grid()
+    d['plne_time'] = load_time(0,15) + ['timeout']
+    d['dynamique_time'] = load_time(0,16, dataDir='dynamiqueData')
+    d['nombre de cases'] = get_nbCases(0,16)
+    print('d :', d)
+    s = tools.toLatexTab(d,start=0,n=17,listKey=['dynamique_time','plne_time','nombre de cases'])
     print(s)
+    #d['mix_time'] = load_time(11,16,dataDir='mixData')
+    #L = load_time(11,16,dataDir='dynamiqueData')
+    #for i in range(len(L)):
+    #    d['mix_time'][i] += L[i]
+    #d['nombre de cases'] = get_nbCases(11,16)
+    # s = tools.toLatexTab(d,start=11,listKey=['plne_time','mix_time','nombre de cases'])
+    # L1 = d['plne_time']
+    # L1[-1] = max(d['nombre de cases'])
+    # tools.multiple_draw_graphe([L1, d['mix_time']],d['nombre de cases'], L_label=['PLNE','mix_time'])
+    # print(s)
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
     #build_images(15,16)
