@@ -208,7 +208,7 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
     \item  A <- coloration(A)
   \end{enumerate}
 \end{enumerate}
-\textit{remarque : } Cette algorithme n'a pas été implémenté néenmoins nous allons procéder à une analyse de complexité pire cas. Dans le pire des cas, chaque case restante est examinée 2 fois. Soit n le nombre de cases restantes. On a donc $2^n $ itérations, qui appellent toutes la fonction coloration. Cette algorithme est donc de complexité exponentielle.
+\textit{remarque : } Cette algorithme n'a pas été implémenté néanmoins nous allons procéder à une analyse de complexité pire cas. Dans le pire des cas, chaque case restante est examinée 2 fois. Soit n le nombre de cases restantes. On a donc $2^n $ itérations, qui appellent toutes la fonction coloration. Cette algorithme est donc de complexité exponentielle.
 
 
 
@@ -326,8 +326,8 @@ L'implantation du plne résout parfaitement l'instance 11:
 
 \caption{Comparaison des temps pour les 2 méthodes}
   \end{center}
-  On remarque que la programmation dynamique est la methode la plus rapide mais elle n'est pas capable de résoudre completement les instances a partir de 11. De plus le temps de calcul pour la PLNE semble plus dépendre des contraintes sur les lignes et les colonnes que du nombre de cases. Par exemple elle prend 162 secondes pour résoudre l'instance 12 de 924 cases alors qu'elle résoud l'instance 13 de 2025 cases en 2 secondes ! \\
-  Finalement la methode mix qui consiste à initialiser la grille avec la programmation dynamique et à appliquer la PLNE est nettement plus rapide que la PLNE classique.
+  On remarque que la programmation dynamique est la méthode la plus rapide mais elle n'est pas capable de résoudre completement les instances a partir de 11. De plus le temps de calcul pour la PLNE semble plus dépendre des contraintes sur les lignes et les colonnes que du nombre de cases. Par exemple elle prend 162 secondes pour résoudre l'instance 12 de 924 cases alors qu'elle résoud l'instance 13 de 2025 cases en 2 secondes ! \\
+  Finalement la méthode mix qui consiste à initialiser la grille avec la programmation dynamique et à appliquer la PLNE est nettement plus rapide que la PLNE classique.
 \end{figure}
 
 
@@ -387,7 +387,7 @@ instances & plne-time & mix-time \\
 
 \caption{Comparaison des temps entre la plne pure et avec une initialisation avec la programmation dynamique(mix)}
 \\
-\textbf{Conclusion : }La methode de résolution la plus rapide est la programmation dynamique. Mais elle n'est pas capable de résoudre certain types de grilles plus difficiles ou il y a un choix de couleur arbitraire à faire pour la résoudre. La PLNE permet de résoudre ces instances mais c'est une methode lente car nous utilisons des variables binaires donc gurobi fait un branch and boud pour trouver la solution optimale. Par conséquent c'est un problème np-complet. On peut néenmoins améliorer le temps de résolution en calculant une grille partielle à l'aide de la programation dynamique et en appliquant la PLNE sur cette grille.
+\textbf{Conclusion : }La méthode de résolution la plus rapide est la programmation dynamique. Mais elle n'est pas capable de résoudre certain types de grilles plus difficiles ou il y a un choix de couleur arbitraire à faire pour la résoudre. La PLNE permet de résoudre ces instances mais c'est une méthode lente car nous utilisons des variables binaires donc gurobi fait un branch and bound pour trouver la solution optimale. Par conséquent c'est un problème np-complet. On peut néanmoins améliorer le temps de résolution en calculant une grille partielle à l'aide de la programation dynamique et en appliquant la PLNE sur cette grille.
 \end{figure}
 
         
