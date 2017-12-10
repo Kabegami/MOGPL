@@ -52,20 +52,11 @@ def memo(f):
 
 def memo_id(f):
     memo_id.dico = dict()
-    memo_id.keyTime = 0
-    memo_id.cpt = 0
     def helper(j, l, S, line):
         idS = id(S)
-        t1 = time.time()
         key = (j,l) + S + line
-        t2 = time.time()
-        memo_id.keyTime += t2 - t1
-        #print('key : ' ,key)
         if key not in memo_id.dico:
-            #print('creation de la clef pour line = {}'.format(line))
             memo_id.dico[key] = f(j,l,S,line)
-        else:
-            memo_id.cpt += 1
         return memo_id.dico[key]
     return helper
 
@@ -83,10 +74,7 @@ class Memo():
     def __init__(self, fn):
         self.fn = fn
         self.memo = dict()
-        self.keyTime = 0
-        self.cpt = 0
     def __call__(self, j,l,S,line):
-        t1 = time.time()
         key = (j,l, id(S)) + tuple(line)
         t2 = time.time()
         self.keyTime +=  t2 - t1

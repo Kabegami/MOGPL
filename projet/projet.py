@@ -16,22 +16,6 @@ cpt = 0
 #pour changer la variable debug utiliser
 #set_debug(boolean)
 
-def save(data, fichier):
-    pickle.dump(data, open(fichier, 'wb'), protocol=2)
-    print('Données sauvegardées avec succès !')
-
-def load(fichier):
-    data = pickle.load(open(fichier, 'rb'))
-    return data
-    
-
-def timeIt(f , *args):
-    t1 = time.time()
-    res = f(*args)
-    t2 = time.time()
-    diff = t2 - t1
-    return res, diff
-
 def check_color_in(j, line, color):
     """ j : int plus grandes cases, lines : array, color : int {blanc : 0, noir = 1, indeter = -1}"""
     for i in range(0, j+1):
@@ -155,7 +139,25 @@ def coloration(A, lines, col):
         cpt += 1
     return A
                 
-                
+#=========================================================================================================
+#                                             TOOLS
+#=========================================================================================================
+
+def save(data, fichier):
+    pickle.dump(data, open(fichier, 'wb'), protocol=2)
+    print('Données sauvegardées avec succès !')
+
+def load(fichier):
+    data = pickle.load(open(fichier, 'rb'))
+    return data
+    
+
+def timeIt(f , *args):
+    t1 = time.time()
+    res = f(*args)
+    t2 = time.time()
+    diff = t2 - t1
+    return res, diff
     
 def read_file(fname):
     f = open(fname,'r')
@@ -230,6 +232,17 @@ def robust_time_list(L,start=1,end=16, default='timeout'):
         except IndexError:
             R.append(default)
     return R
+
+def save_grid(start=0, end=10, dirname='instances/', objDir='dynamiqueData/', name='instance'):
+    if not os.path.exists(objDir):
+        os.mkdir(objDir)
+    for i in range(start, end+1):
+        fname = dirname + str(i)+'.txt'
+        lines, col, Mat = read_file(fname)
+        A = coloration(Mat, lines, col)
+        saveFname = objDir + name + str(i)
+        save(A, saveFname)
+    print('Sauvegarde des grilles effectué avec succès !')
         
     
 def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
@@ -258,13 +271,17 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
         
         
     
+#=========================================================================================================
+#                                             MAIN
+#=========================================================================================================
 
 if __name__ == "__main__":
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
     #build_images(15,16)
-    build_plne_images(15,15)
-    L = load_time(0,8)
+    #build_plne_images(11,15)
+    save_grid(11,16)
+    #L = load_time(0,8)
     #d = {'time': L}
     #s= tools.toLatexTab(d,start=11)
     #print('S : ', s)
@@ -274,8 +291,8 @@ if __name__ == "__main__":
     #A = coloration(Mat, lines, col)
     #print('A : ', A)
     #draw(A)
-    #dico = stat(0,10,saveData=True)
-    dico = load('data')
+    #dico = stat(0,10,saveData=False)
+    #dico = load('data')
     print('dico : ', dico)
     L1 = dico['nbCases']
     L2 = dico['time']
@@ -283,15 +300,9 @@ if __name__ == "__main__":
 
     #s = tools.toLatexTab(d,start=0)
     #print(s)
-    print('L : ', L)
-    print('L2 : ', L2)
-    tools.multiple_draw_graphe([L,L2[:9]],L1[:9], L_label=['PLNE','programation dynamique'])
+    #tools.multiple_draw_graphe([L,L2[:9]],L1[:9], L_label=['PLNE','programation dynamique'])
     #tools.draw_graphe(L1,L2)
-    q = tools.verifComplexite(L1,L2)
-    print('complexité : ', q)
-    #s = tools.toLatexTab(dico,['nbCases','time'])
-    #print(s)
-    
-    #print('temps de calcul des clefs : ', memo_id.keyTime)
+    #q = tools.verifComplexite(L1,L2)
+    #print('complexité : ', q)
     
 #plt.show()

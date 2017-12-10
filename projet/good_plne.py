@@ -255,20 +255,74 @@ def solve(S, N, M, timeout = False):
     #print('A : ', A)
     #draw(A)
 
-def compute_instance(start=11, end=16,timeout=False):
+def partial_solve(S, N, M, A, timeout=False):
+        """ Prend en entree une matrice de grille partiellement complete et l'ajoute en contrainte """
+        model = Model("mogpl")
+        Sligne, Scolonne = S[:N], S[N:]
+        X, Y, Z = variables(N, M, Sligne, Scolonne, model)
+    
+        obj = []
+        coef = []
+        for i in range(N):
+                for j in range(M):
+                        obj.append(X[i,j])
+                        coef.append(1)
+        model.setObjective(LinExpr(coef,obj), GRB.MINIMIZE)
+        model.update()
+        #partial_solve
+        n,m = A.shape
+        for i in range(n):
+                for j in range(m):
+                        v = int(A[i][j])
+                        model.addConstr(X[i][j], '<=', v, name='Partial solve')
+                        model.addConstr(X[i][j], '>=', v, name='Partial solve')
+        ######################################################
+        contrainte(X, Y, Z, N, M, Sligne, Scolonne, model)
+        if timeout:
+                model.setParam('TimeLimit', 2*60)
+            
+        model.optimize()
+        for yi in Y:
+                print(Y[yi])
+        
+        for zi in Z:
+                print(Z[zi])        
+        A = to_array(X, N, M)
+        return A, model.Runtime
+        
+
+def compute_instance(start=11, end=16,timeout=False, instanceDir='instances/', objDir = 'plneData/', nameI='instance', nameT='time'):
         for i in range(start, end+1):
-                filename = 'instances/' + str(i) + '.txt' 
-                dataName = 'plneData/' +'instance' + str(i)
-                timeName = 'plneData/' + 'time' + str(i)
+                filename = instanceDir + str(i) + '.txt' 
+                dataName = objDir + nameI + str(i)
+                timeName = objDir + nameT + str(i)
                 S,N,M = lireFichier(filename)
                 A,t = solve(S,N,M)
                 save(A, dataName)
                 save(t, timeName)
-                
+
+def compute_mix(start=11, end=16,timeout=False, instanceDir='instances/', objDir = 'mixData/', nameI='instance', nameT='time', partialDir='dynamiqueData/'):
+        for i in range(start, end+1):
+                filename = instanceDir + str(i) + '.txt' 
+                dataName = objDir + nameI + str(i)
+                timeName = objDir + nameT + str(i)
+                S,N,M = lireFichier(filename)
+                try:
+                        partialF = partialDir + 'instance' + str(i)
+                        A = load(partialF)
+                        L,t = partial_solve(S,N,M,A)
+                        save(A, dataName)
+                        save(t, timeName)
+                except:
+                        print("La grille partielle n'existe pas")
+                        A,t = solve(S,N,M)
+                        save(A, dataName)
+                        save(t, timeName)
         
 		
 def main():
-    compute_instance(11,15)
+    #compute_instance(11,15)
+    compute_mix(11,15)
     #S, N, M = lireFichier('instances/15.txt')
     #L = solve(S,N,M,True)
     #print(L)
