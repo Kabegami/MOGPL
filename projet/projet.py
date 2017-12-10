@@ -281,6 +281,9 @@ if __name__ == "__main__":
     d = dict()
     d['plne_time'] = load_time(11,15)
     d['mix_time'] = load_time(11,15,dataDir='mixData')
+    L = load_time(11,15,dataDir='dynamiqueData')
+    for i in range(len(L)):
+        d['mix_time'][i] += L[i]
     s = tools.toLatexTab(d,start=11)
     print(s)
     #lines, col ,Mat = read_file('instances/8.txt')
