@@ -223,6 +223,17 @@ def load_time(start=11, end=16, dataDir='plneData'):
             L.append(t)
     return L
 
+def robust_load_time(start=0, end=16, dataDir='plneData', default='timeout'):
+    L = []
+    for i in range(start, end+1):
+        name = dataDir + '/' + 'time' + str(i)
+        if os.path.exists(name):
+            t = load(name)
+            L.append(t)
+        else:
+            L.append(default)
+    return L
+
 def robust_time_list(L,start=1,end=16, default='timeout'):
     R = []
     for i in range(start, end+1):
@@ -291,9 +302,15 @@ if __name__ == "__main__":
     #build_plne_images(16,16,dataDir='mixData', dirSave='mixImages', prefix='mix')
     d = dict()
     #save_grid()
-    d['plne_time'] = load_time(0,15) + ['timeout']
+    d['plne_time'] = robust_load_time()
     d['dynamique_time'] = load_time(0,16, dataDir='dynamiqueData')
-    d['nombre de cases'] = get_nbCases(0,16)
+    d['nombre de cases'] = get_nbCases()
+    L1 =  d['plne_time']
+    L2 = d['dynamique_time']
+    L3 = d['nombre de cases']
+    print('l1 : ', len(L1))
+    print('l2 : ', len(L2))
+    print('l3 : ', len(L3))
     print('d :', d)
     s = tools.toLatexTab(d,start=0,listKey=['dynamique_time','plne_time','nombre de cases'])
     print(s)
