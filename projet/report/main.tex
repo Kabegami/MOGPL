@@ -136,18 +136,18 @@
  	\textbf{Question 3:}\\\\
  	La relation de récurrence permettant de calculer $T(j,l)$ est la suivante:\\\\
  	$T(j, l) = T(j-(s_{l}+1),l-1) \vee T(j-1,l)$\\\\
- 	En effet si l'on se trouve à la case j qui est noir, et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les coloration de $s_{l-1} et s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$. \\
-        En revanche si la case j est blanche, il n'est pas possible de placer le bloc par consequent on regarde si il est possible de placer la sequences sur les bloc précédents, ce qui s'exprimer par la formule : $T(j-1,l)$ \\
+ 	En effet si l'on se trouve à la case j qui est noire, et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les colorations de $s_{l-1}$ et $s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$. \\
+        En revanche si la case j est blanche, il n'est pas possible de placer le bloc par consequent on regarde si il est possible de placer la sequence sur les bloc précédents, ce qui s'exprimer par la formule : $T(j-1,l)$ \\
 
 
         \textbf{Question 5:}\\\\
-        1) Dans le cas, ou l'on a pas de bloc, il faut vérifier qu'aucune case n'est coloriées.\\
+        1) Dans le cas, ou l'on a pas de bloc, il faut vérifier qu'aucune case n'est coloriée.\\
         2.a) Si il n'y a pas la place pour mettre un bloc, c'est toujours faux peu importe la ligne \\
         2.b) Si $j = sl-1$ alors il faut vérifier que l'on peut poser le bloc, c'est à dire il n'y a pas de cases noires sur les cases considérées. \\
         2.c) \begin{itemize}
         \item Si la première case est blanche, on ne peut pas poser le bloc par conséquent on regarde $T(j-1,l)$
         \item Si la case j est noire, on regarde si on peut placer le bloc de manière correcte, c'est à dire pas de blanc sur l'emplacement et un blanc apres et avant pour s'assurer que les blocs son bien séparés.
-        \item Si la case n'est pas encore colorié, on traite les deux cas de figures précédent et il suffit qu'un seul soit vrai pour que l'on considère $T(j,l)$ vrai.
+        \item Si la case n'est pas encore coloriée, on traite les deux cas de figures précédent et il suffit qu'un seul soit vrai pour que l'on considère $T(j,l)$ vrai.
           \end{itemize}
  
         
@@ -194,7 +194,7 @@
 
 
 
-\textbf{Question 9} En appliquant notre programme sur l'instance 11, on observe qu'en dépit de la petite taille de l'instance notre algorithme ne colorie rien. En effet quand une case peut être colorié à la fois en blanc et en noir notre algorithme ne fais rien. Si la couleur d'une case ne peut être déterminée de manière exacte grace aux contraintes elle ne sera pas colorié. Ce qui explique pourquoi notre algorithme ne colorie pas correctement l'instance 11.
+\textbf{Question 9} En appliquant notre programme sur l'instance 11, on observe qu'en dépit de la petite taille de l'instance notre algorithme ne colorie rien. En effet quand une case peut être coloriée à la fois en blanc et en noir notre algorithme ne fais rien. Si la couleur d'une case ne peut être déterminée de manière exacte grace aux contraintes elle ne sera pas coloriée. Ce qui explique pourquoi notre algorithme ne colorie pas correctement l'instance 11.
 \\
 Une solution à ce problème est d'implémenter un algorithme de backtracking qui une fois la coloration effectuée, observe toutes les cases non coloriées et leur affecte 0 et 1 arbitrairement puis on relance coloration avec la nouvelle grille. On réitère jusqu'à obtenir une grille complète (dans ce cas fin de l'algorithme) ou une grille insolvable. Si le grille ne peut pas être résolue , on retourne jusqu'à l'affectation la plus récente et on prend l'autre couleur. On notera que cette algorithme prend beaucoup plus de temps pour résoudre les grilles, une autre approche est d'utiliser la PLNE.\\
 \begin{enumerate}
@@ -216,16 +216,16 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
  	\newpage
  	\section{II. La PLNE à la rescousse}
     \subsection{1 - Modélisation}
-    \textbf{Question 10:}\\\\ On veut avoir une contrainte qui force nos cases  à êtres noires si un bloc est posé. De plus si un bloc n'est pas posé sur la case (i,j), il ne faut rien imposé aux $x_{ij}$ . \\
+    \textbf{Question 10:}\\\\ On veut avoir une contrainte qui force nos cases  à êtres noires si un bloc est posé. De plus si un bloc n'est pas posé sur la case (i,j), il ne faut rien imposer aux $x_{ij}$ . \\
     Par conséquent la condition est: $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}  $ c'est à dire : \\
     $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} - y^{t}_{ij} \times s_{t} \geq 0$ \\
-    Cette contrainte est bien valide car si $y_{ij}$ vaut 1 alors toutes les cases associées aux bloc doivent être noir. Et si $y_{ij}$ vaut 0, on n'a pas de contrainte. \\
+    Cette contrainte est bien valide car si $y_{ij}$ vaut 1 alors toutes les cases associées aux bloc doivent être noires. Et si $y_{ij}$ vaut 0, on n'a pas de contrainte. \\
     Avec le même raisonnement on a pour les colonnes: $\sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $\\
     \textbf{Question 11:}\\\\
-    On cherche à exprimer une contrainte qui empêche de poser un bloc t+1 avant que le bloc t soit posé c'est à dire : 
+    On cherche à exprimer une contrainte qui empêche de poser un bloc t+1 avant que le bloc t soit posé.
 
     La condition est: $y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1$\\
-    Si $y_{ij}$ vaut 0, contrainte est toujours vrai. Et si $y_{ij}$ vaut 1, aucun bloc $k$ avec $k > t$ peut être posé avant $j+s_t$. \\
+    Si $y_{ij}$ vaut 0, la contrainte est toujours vraie . Et si $y_{ij}$ vaut 1, aucun bloc $k$ avec $k > t$ ne peut être posé avant $j+s_t$. \\
     Avec le même raisonnement on a pour les colonnes: $z^{t}_{ij} + \sum \limits_{{k=0}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$
     \newpage
     
@@ -270,7 +270,7 @@ $$
 (N'oublions pas que j commence à 0 et termine à M-1)\\
 - Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$. \\
 - Pour une colonne $l_{j}$ le $l^{jeme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, N - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$. \\
-On ajoute bien évidemment ces contraintes dans notre programme linéaire et mettant les $y_{ij}^t$ et $z_{ij}^t$ à 0, pour les i et j ne faisant pas partie de l'intervalle des blocs possible.
+On ajoute bien évidemment ces contraintes dans notre programme linéaire et mettant les $y_{ij}^t$ et $z_{ij}^t$ à 0, pour les i et j ne faisant pas parties de l'intervalle des blocs possibles.
 \newpage
 \textbf{Question 14: }\\\\
 L'implantation du plne résout parfaitement l'instance 11:
@@ -326,7 +326,7 @@ L'implantation du plne résout parfaitement l'instance 11:
 
 \caption{Comparaison des temps pour les 2 méthodes}
   \end{center}
-  On remarque que la programmation dynamique est la methode la plus rapide mais elle n'est pas capable de résoudre completement les instances a partir de 11. De plus le temps de calcul pour la PLNE semble plus dépendre des contraintes sur les lignes et les colonnes que du nombre de case. Par exemple elle prend 162 secondes pour résoudre l'instance 12 de 924 cases alors qu'elle résoud l'instance 13 de 2025 cases en 2 secondes ! \\
+  On remarque que la programmation dynamique est la methode la plus rapide mais elle n'est pas capable de résoudre completement les instances a partir de 11. De plus le temps de calcul pour la PLNE semble plus dépendre des contraintes sur les lignes et les colonnes que du nombre de cases. Par exemple elle prend 162 secondes pour résoudre l'instance 12 de 924 cases alors qu'elle résoud l'instance 13 de 2025 cases en 2 secondes ! \\
   Finalement la methode mix qui consiste à initialiser la grille avec la programmation dynamique et à appliquer la PLNE est nettement plus rapide que la PLNE classique.
 \end{figure}
 
@@ -357,11 +357,11 @@ L'implantation du plne résout parfaitement l'instance 11:
 \begin{figure}[h]
   \section{III. Pour aller plus loin}
   \textbf{Analyse de complixté:} On étudie la complexité pire cas de l'algorithme de programmation dynamique de la partie 1.
-  Soient I et J ,le nombre de contraintes sur les lignes et colonnes.
-  La fonction T(j,l) va calculer toutes les combinaisons et cases pour les lignes et les colonnes ce qui ce fait en $O(I \mult J)$ si l'on considère la version itérative. \\
+  Soient I et J le nombre de contraintes sur les lignes et colonnes.
+  La fonction T(j,l) va calculer toutes les combinaisons de cases et séquences  pour les lignes et les colonnes ce qui ce fait en $O(I \mult N + J \mult M)$ si l'on considère la version itérative. \\
   L'algorithme de coloration est basé sur une boucle while.
-  Dans le pire des cas on a une boucle pour chaque case de la grille. Donc la complexité de l'algorithme est $O(N\mult M\mlut (I \mult J))$.\\
-  La complexité expérimentale semble bien moindre.On fait l'hypothèse que nous avons une fonction polynomiale de la forme $f(x) = \lambda x^p$ avec $\lambda$ et $p$ appartenant à $\mathbb{R}$. De ce fait en passant au log on obtient : $log(f(x)) = log(\lambda) + p \times log(x)$ avec $log(\lambda)$ une constante. De ce fait, en tracant $log(f(x))$ en fonction de $log(x)$ et en calculant la pente on obtient $p$, c'est à dire la puissance de notre polynome.
+  Dans le pire des cas on a une boucle pour chaque case de la grille. Donc la complexité de l'algorithme est $O(N\mult M\mlut (I \mult N + J \mult M))$.\\
+  La complexité expérimentale semble bien plus faible.On fait l'hypothèse que nous avons une fonction polynomiale de la forme $f(x) = \lambda x^p$ avec $\lambda$ et $p$ appartenant à $\mathbb{R}$. De ce fait en passant au log on obtient : $log(f(x)) = log(\lambda) + p \times log(x)$ avec $log(\lambda)$ une constante. De ce fait, en tracant $log(f(x))$ en fonction de $log(x)$ et en calculant la pente on obtient $p$, c'est à dire la puissance de notre polynome.
   En procédant ainsi nous trouvons p=0.562258487574. \\
   
 En implémentant la méthode qui consiste à commencer par la programmation dynamique puis la PLNE sur les cases non déterminées nous obtenons des meilleurs temps comme on peut le voir ci-dessous:\\\\
@@ -387,7 +387,7 @@ instances & plne-time & mix-time \\
 
 \caption{Comparaison des temps entre la plne pure et avec une initialisation avec la programmation dynamique(mix)}
 \\
-\textbf{Conclusion : }La methode de résolution la plus rapide est la dynamique. Mais elle n'est pas capable de résoudre certain type de grille plus difficile ou il y a un choix de couleur arbitraire à faire pour la résoudre. La PLNE permet de résoudre ces instances mais est une methode lente car nous utilisons des variables binaires donc gurobi fait un branch and boud pour trouver la solution optimal. Par conséquent c'est un problème np-complet. On peut néenmoins améliorer le temps de résolution en calculant une grille partielle à l'aide de la programation dynamique et en appliquant la PLNE sur cette grille.
+\textbf{Conclusion : }La methode de résolution la plus rapide est la programmation dynamique. Mais elle n'est pas capable de résoudre certain types de grilles plus difficiles ou il y a un choix de couleur arbitraire à faire pour la résoudre. La PLNE permet de résoudre ces instances mais c'est une methode lente car nous utilisons des variables binaires donc gurobi fait un branch and boud pour trouver la solution optimale. Par conséquent c'est un problème np-complet. On peut néenmoins améliorer le temps de résolution en calculant une grille partielle à l'aide de la programation dynamique et en appliquant la PLNE sur cette grille.
 \end{figure}
 
         
