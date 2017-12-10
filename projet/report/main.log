@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 21:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1773,129 +1773,174 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--201
  []
 
 [3] [4 <../images/dynamique_instance9.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 218--227
+Underfull \hbox (badness 10000) in paragraph at lines 219--226
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--227
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 218--227
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 218--227
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 218--227
+Underfull \hbox (badness 10000) in paragraph at lines 219--226
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 229--230
+Underfull \hbox (badness 10000) in paragraph at lines 232--233
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 229--230
+Underfull \hbox (badness 10000) in paragraph at lines 232--233
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
+Underfull \hbox (badness 10000) in paragraph at lines 234--235
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
+Underfull \hbox (badness 10000) in paragraph at lines 234--235
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--256
+Underfull \hbox (badness 10000) in paragraph at lines 264--266
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--262
+Underfull \hbox (badness 10000) in paragraph at lines 269--274
 
  []
 
 [6]
-<../images/plne_instance11.png, id=92, 462.528pt x 346.896pt>
+<../images/plne_instance11.png, id=93, 462.528pt x 346.896pt>
 File: ../images/plne_instance11.png Graphic file (type png)
 <use ../images/plne_instance11.png>
-Package pdftex.def Info: ../images/plne_instance11.png  used on input line 267.
- on input line 267.
+Package pdftex.def Info: ../images/plne_instance11.png  used on input line 279.
+ on input line 279.
 Package pdftex.def Info: Requested size: 199.16928pt x 149.37938pt on input lin
-e 267.
+e 279.
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--272
+Underfull \hbox (badness 10000) in paragraph at lines 275--284
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--284
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 263--272
-
+Overfull \hbox (63.96744pt too wide) in paragraph at lines 287--326
+ [] 
  []
 
-<../images/comparaison.png, id=93, 462.528pt x 346.896pt>
+<../images/comparaison.png, id=94, 462.528pt x 346.896pt>
 File: ../images/comparaison.png Graphic file (type png)
 <use ../images/comparaison.png>
-Package pdftex.def Info: ../images/comparaison.png  used on input line 325. on 
-input line 325.
+Package pdftex.def Info: ../images/comparaison.png  used on input line 337. on 
+input line 337.
 Package pdftex.def Info: Requested size: 320.0935pt x 240.08365pt on input line
- 325.
+ 337.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../images/dynamique_instance15.png, id=94, 462.528pt x 346.896pt>
+<../images/dynamique_instance15.png, id=95, 462.528pt x 346.896pt>
 File: ../images/dynamique_instance15.png Graphic file (type png)
 <use ../images/dynamique_instance15.png>
 Package pdftex.def Info: ../images/dynamique_instance15.png  used on input line
- 334. on input line 334.
+ 346. on input line 346.
 Package pdftex.def Info: Requested size: 199.16928pt x 149.37938pt on input lin
-e 334.
+e 346.
 
-Overfull \hbox (7.11449pt too wide) in paragraph at lines 334--335
+Overfull \hbox (7.11449pt too wide) in paragraph at lines 346--347
  [][] 
  []
 
-<../images/plne_instance15.png, id=95, 462.528pt x 346.896pt>
+<../images/plne_instance15.png, id=96, 462.528pt x 346.896pt>
 File: ../images/plne_instance15.png Graphic file (type png)
 <use ../images/plne_instance15.png>
-Package pdftex.def Info: ../images/plne_instance15.png  used on input line 339.
- on input line 339.
+Package pdftex.def Info: ../images/plne_instance15.png  used on input line 351.
+ on input line 351.
 Package pdftex.def Info: Requested size: 199.16928pt x 149.37938pt on input lin
-e 339.
+e 351.
 
-Overfull \hbox (7.11449pt too wide) in paragraph at lines 339--340
+Overfull \hbox (7.11449pt too wide) in paragraph at lines 351--352
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 331--343
+Underfull \hbox (badness 10000) in paragraph at lines 343--355
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+! Undefined control sequence.
+l.361 ...les colonnes ce qui ce fait en $O(I \mult
+                                                   J)$ si l'on considère la...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+! Undefined control sequence.
+l.363 ...complexité de l'algorithme est $O(N\mult
+                                                   M\mlut (I \mult J))$.\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.363 ...ité de l'algorithme est $O(N\mult M\mlut
+                                                   (I \mult J))$.\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.363 ...'algorithme est $O(N\mult M\mlut (I \mult
+                                                   J))$.\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 359--366
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
+
+ []
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.390 \textbf
+             {Conclusion : }La methode de résolution la plus rapide est la ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1905,19 +1950,19 @@ ynamique_instance15.png> <../images/plne_instance15.png>] [9]
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 373.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 373.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 394.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 394.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 373.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 373.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 394.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 394.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0DA982EF836CF204E93434EDA6C456A8;509.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 373.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 394.
  ) 
 Here is how much of TeX's memory you used:
  33578 strings out of 492990
  621886 string characters out of 6138688
- 733342 words of memory out of 5000000
+ 737342 words of memory out of 5000000
  36684 multiletter control sequences out of 15000+600000
  541397 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1930,16 +1975,18 @@ mi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/s
-ymbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1000.p
-fb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/
-texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/font
-s/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/
-cm-super/sfcc1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc10
-95.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (9 pages, 261610 bytes).
+ymbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
+bm10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/
+share/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf-dis
+t/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/cm-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/
+sfcc1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></
+usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf
+-dist/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on main.pdf (9 pages, 286466 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
+ 187 PDF objects out of 1000 (max. 8388607)
+ 146 compressed objects within 2 object streams
  28 named destinations out of 1000 (max. 500000)
  94 words of extra memory for PDF output out of 10000 (max. 10000000)
 

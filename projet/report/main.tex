@@ -208,6 +208,7 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
     \item  A <- coloration(A)
   \end{enumerate}
 \end{enumerate}
+\textit{remarque : } Cette algorithme n'a pas été implémenté néenmoins nous allons procéder à une analyse de complexité pire cas. Dans le pire des cas, chaque case restante est examinée 2 fois. Soit n le nombre de cases restantes. On a donc $2^n $ itérations, qui appellent toutes la fonction coloration. Cette algorithme est donc de complexité exponentielle.
 
 
 
@@ -215,14 +216,16 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
  	\newpage
  	\section{II. La PLNE à la rescousse}
     \subsection{1 - Modélisation}
-    \textbf{Question 10:}\\\\ - $x_{ij}$ vaut 1 si la case (i, j)est coloriée en noir et 0 si coloriée en noir.\\\\
-    - $y^{t}_{ij}$ vaut 1 si le $t_{ieme}$ bloc de la ligne $l_{i}$ commence à la case (i, j) et 0 sinon.\\\\
-    - $z^{t}_{ij}$ vaut 1 si le $t_{ieme}$ bloc de la colonne $c_{j}$ commence à la case (i, j) et 0 sinon.\\\\
-    Par conséquent on a : $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} = s_{t}$\\ Et donc $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} = y^{t}_{ij} \times s_{t} $ \\ Par conséquent la condition est: $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}  $ \\ Avec le même raisonnement on a pour les colonnes: $\sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $\\
+    \textbf{Question 10:}\\\\ On veut avoir une contrainte qui force nos cases  à êtres noires si un bloc est posé. De plus si un bloc n'est pas posé sur la case (i,j), il ne faut rien imposé aux $x_{ij}$ . \\
+    Par conséquent la condition est: $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}  $ c'est à dire : \\
+    $\sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} - y^{t}_{ij} \times s_{t} \geq 0$ \\
+    Cette contrainte est bien valide car si $y_{ij}$ vaut 1 alors toutes les cases associées aux bloc doivent être noir. Et si $y_{ij}$ vaut 0, on n'a pas de contrainte. \\
+    Avec le même raisonnement on a pour les colonnes: $\sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $\\
     \textbf{Question 11:}\\\\
     On cherche à exprimer une contrainte qui empêche de poser un bloc t+1 avant que le bloc t soit posé c'est à dire : 
-    $y^{t}_{ij} = 1 \Rightarrow\sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} = 0$\\ et $y^{t}_{ij} = 0 \Rightarrow\sum \limits_{{k=j}}^{j+s_{t}} y^{t+1}_{ik} \in \lbrace 0 , 1\rbrace$\\
-    Et donc la condition est: $y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1$\\
+
+    La condition est: $y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1$\\
+    Si $y_{ij}$ vaut 0, contrainte est toujours vrai. Et si $y_{ij}$ vaut 1, aucun bloc $k$ avec $k > t$ peut être posé avant $j+s_t$. \\
     Avec le même raisonnement on a pour les colonnes: $z^{t}_{ij} + \sum \limits_{{k=0}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$
     \newpage
     
@@ -232,9 +235,9 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
   $$	
 	s.c\left\{
     \begin{array}{ll}
-         \sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} \geq y^{t}_{ij} \times s_{t}$ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+         \sum \limits_{{k=j}}^{j+s_{t}-1} x_{ik} - y^{t}_{ij} \times s_{t} \geq 0$ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
          
-        \sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+        \sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} - z^{t}_{ij} \times s_{t} \geq 0 $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
         
         y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}-1\rbrace\\\\
         
@@ -243,6 +246,13 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
         \sum \limits_{{j=0}}^{M-1} y^{t}_{ij} = 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
         
         \sum \limits_{{i=0}}^{N-1} z^{t}_{ij} = 1 $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+
+%        \sum \limits_{{k=0}}^{\sum \limit_{{n=1}}^{t-1} sn+1} z^{t}_{ik} = 0 $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+
+%        \sum \limits_{{k=0}}^{N - st - \sum \limit{_{n=l+1}^{ki}} (sn+1)}} z^{t}_{ik} = 0 $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+
+        
+        
         
       x_{ij} \in \lbrace0,1\rbrace$ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall j \in \lbrace 0, 1, 2,...,M-1\rbrace\\\\
       
@@ -258,7 +268,9 @@ $$
 \subsection{2 - Implantation et tests}
 \textbf{Question 13: }\\\\
 (N'oublions pas que j commence à 0 et termine à M-1)\\
-- Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$
+- Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$. \\
+- Pour une colonne $l_{j}$ le $l^{jeme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, N - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$. \\
+On ajoute bien évidemment ces contraintes dans notre programme linéaire et mettant les $y_{ij}^t$ et $z_{ij}^t$ à 0, pour les i et j ne faisant pas partie de l'intervalle des blocs possible.
 \newpage
 \textbf{Question 14: }\\\\
 L'implantation du plne résout parfaitement l'instance 11:
@@ -272,52 +284,52 @@ L'implantation du plne résout parfaitement l'instance 11:
 
 \begin{figure}[h]
   \begin{center}
-
-    \begin{tabular}{|c||c||c||c|}
+    \begin{tabular}{|c||c||c||c||c|}
       \hline
-      instances & dynamique-time & plne-time & nombre de cases \\ 
+      instances & dynamique-time & plne-time & mix-time & nombre de cases \\ 
       \hline
-      0 & 0.0004119873046875 & 0.0007050037384033203 & 20 \\ 
+      0 & 0.0004119873046875 & 0.0006170272827148438 & 0.0008900165557861328 & 20 \\ 
       \hline
-      1 & 0.0004858970642089844 & 0.0012221336364746094 & 25 \\ 
+      1 & 0.0004858970642089844 & 0.0013060569763183594 & 0.0009407997131347656 & 25 \\ 
       \hline
-      2 & 0.11206889152526855 & 2.4385571479797363 & 400 \\ 
+      2 & 0.11206889152526855 & 2.535233974456787 & 0.12527084350585938 & 400 \\ 
       \hline
-      3 & 0.08992695808410645 & 0.10664486885070801 & 481 \\ 
+      3 & 0.08992695808410645 & 0.126816987991333 & 0.10281085968017578 & 481 \\ 
       \hline
-      4 & 0.1614398956298828 & 9.278510093688965 & 625 \\ 
+      4 & 0.1614398956298828 & 9.870957851409912 & 0.19457793235778809 & 625 \\ 
       \hline
-      5 & 0.19578003883361816 & 2.123404026031494 & 675 \\ 
+      5 & 0.19578003883361816 & 2.034217119216919 & 0.20783019065856934 & 675 \\ 
       \hline
-      6 & 0.5122568607330322 & 120.54762291908264 & 900 \\ 
+      6 & 0.5122568607330322 & 351.21364879608154 & 0.5453379154205322 & 900 \\ 
       \hline
-      7 & 0.3045821189880371 & 0.5048248767852783 & 1054 \\ 
+      7 & 0.3045821189880371 & 0.4993908405303955 & 0.32914304733276367 & 1054 \\ 
       \hline
-      8 & 0.44316697120666504 & 1.1952688694000244 & 1400 \\ 
+      8 & 0.44316697120666504 & 0.8764519691467285 & 0.498075008392334 & 1400 \\ 
       \hline
-      9 & 5.620426177978516 & timeout & 2500 \\ 
+      9 & 5.620426177978516 & timeout & 5.995676279067993 & 2500 \\ 
       \hline
-      10 & 9.328194856643677 & timeout & 9801 \\ 
+      10 & 9.328194856643677 & timeout & 10.79225778579712 & 9801 \\ 
       \hline
-      11 & 0.0003771781921386719 & 0.0005419254302978516 & 8 \\ 
+      11 & 0.0003771781921386719 & 0.0005419254302978516 & 0.0009791851043701172 & 8 \\ 
       \hline
-      12 & 0.8796999454498291 & 162.9039990901947 & 924 \\ 
+      12 & 0.8796999454498291 & 162.9039990901947 & 1.081050157546997 & 924 \\ 
       \hline
-      13 & 1.0365591049194336 & 2.343104124069214 & 2025 \\ 
+      13 & 1.0365591049194336 & 2.343104124069214 & 1.3090941905975342 & 2025 \\ 
       \hline
-      14 & 0.772252082824707 & 0.7354490756988525 & 1140 \\ 
+      14 & 0.772252082824707 & 0.7354490756988525 & 0.824674129486084 & 1140 \\ 
       \hline
-      15 & 0.28334784507751465 & 18.160336017608643 & 900 \\ 
+      15 & 0.28334784507751465 & 18.160336017608643 & 7.860313892364502 & 900 \\ 
       \hline
-      16 & 0.7040119171142578 & timeout & 1750 \\ 
-      \hline
+      16 & 0.7040119171142578 & timeout & 1650.8602929115295 & 1750 \\ 
+\hline
     \end{tabular}
-    
-
 
 \caption{Comparaison des temps pour les 2 méthodes}
   \end{center}
-  \end{figure}
+  On remarque que la programmation dynamique est la methode la plus rapide mais elle n'est pas capable de résoudre completement les instances a partir de 11. De plus le temps de calcul pour la PLNE semble plus dépendre des contraintes sur les lignes et les colonnes que du nombre de case. Par exemple elle prend 162 secondes pour résoudre l'instance 12 de 924 cases alors qu'elle résoud l'instance 13 de 2025 cases en 2 secondes ! \\
+  Finalement la methode mix qui consiste à initialiser la grille avec la programmation dynamique et à appliquer la PLNE est nettement plus rapide que la PLNE classique.
+\end{figure}
+
 
 
 \begin{figure}[h]
@@ -343,7 +355,15 @@ L'implantation du plne résout parfaitement l'instance 11:
 \end{figure}
 
 \begin{figure}[h]
-\section{III. Pour aller plus loin}
+  \section{III. Pour aller plus loin}
+  \textbf{Analyse de complixté:} On étudie la complexité pire cas de l'algorithme de programmation dynamique de la partie 1.
+  Soient I et J ,le nombre de contraintes sur les lignes et colonnes.
+  La fonction T(j,l) va calculer toutes les combinaisons et cases pour les lignes et les colonnes ce qui ce fait en $O(I \mult J)$ si l'on considère la version itérative. \\
+  L'algorithme de coloration est basé sur une boucle while.
+  Dans le pire des cas on a une boucle pour chaque case de la grille. Donc la complexité de l'algorithme est $O(N\mult M\mlut (I \mult J))$.\\
+  La complexité expérimentale semble bien moindre.On fait l'hypothèse que nous avons une fonction polynomiale de la forme $f(x) = \lambda x^p$ avec $\lambda$ et $p$ appartenant à $\mathbb{R}$. De ce fait en passant au log on obtient : $log(f(x)) = log(\lambda) + p \times log(x)$ avec $log(\lambda)$ une constante. De ce fait, en tracant $log(f(x))$ en fonction de $log(x)$ et en calculant la pente on obtient $p$, c'est à dire la puissance de notre polynome.
+  En procédant ainsi nous trouvons p=0.562258487574. \\
+  
 En implémentant la méthode qui consiste à commencer par la programmation dynamique puis la PLNE sur les cases non déterminées nous obtenons des meilleurs temps comme on peut le voir ci-dessous:\\\\
 \begin{center}
 \begin{tabular}{|c||c||c|}
@@ -366,8 +386,9 @@ instances & plne-time & mix-time \\
 \end{center}
 
 \caption{Comparaison des temps entre la plne pure et avec une initialisation avec la programmation dynamique(mix)}
+\\
+\textbf{Conclusion : }La methode de résolution la plus rapide est la dynamique. Mais elle n'est pas capable de résoudre certain type de grille plus difficile ou il y a un choix de couleur arbitraire à faire pour la résoudre. La PLNE permet de résoudre ces instances mais est une methode lente car nous utilisons des variables binaires donc gurobi fait un branch and boud pour trouver la solution optimal. Par conséquent c'est un problème np-complet. On peut néenmoins améliorer le temps de résolution en calculant une grille partielle à l'aide de la programation dynamique et en appliquant la PLNE sur cette grille.
 \end{figure}
 
-    
-     
+        
 \end{document}

@@ -303,8 +303,12 @@ if __name__ == "__main__":
     d = dict()
     #save_grid()
     d['plne_time'] = robust_load_time()
-    d['dynamique_time'] = load_time(0,16, dataDir='dynamiqueData')
-    d['nombre de cases'] = get_nbCases()
+    d['dynamique_time'] = load_time(0,10, dataDir='dynamiqueData')
+    d['nombre de cases'] = get_nbCases(0,10)
+    d['mix-time'] = load_time(0,16,dataDir='mixData')
+    for i in range(len(d['dynamique_time'])):
+        L = d['mix-time']
+        L[i] += d['dynamique_time'][i]
     L1 =  d['plne_time']
     L2 = d['dynamique_time']
     L3 = d['nombre de cases']
@@ -312,7 +316,7 @@ if __name__ == "__main__":
     print('l2 : ', len(L2))
     print('l3 : ', len(L3))
     print('d :', d)
-    s = tools.toLatexTab(d,start=0,listKey=['dynamique_time','plne_time','nombre de cases'])
+    s = tools.toLatexTab(d,start=0,listKey=['dynamique_time','plne_time', 'mix-time','nombre de cases'])
     print(s)
     #d['mix_time'] = load_time(11,16,dataDir='mixData')
     #L = load_time(11,16,dataDir='dynamiqueData')
@@ -350,7 +354,7 @@ if __name__ == "__main__":
     #print(s)
     #tools.multiple_draw_graphe([L,L2[:9]],L1[:9], L_label=['PLNE','programation dynamique'])
     #tools.draw_graphe(L1,L2)
-    #q = tools.verifComplexite(L1,L2)
-    #print('complexité : ', q)
+    q = tools.verifComplexite(d['dynamique_time'],d['nombre de cases'])
+    print('complexité : ', q)
     
 #plt.show()
