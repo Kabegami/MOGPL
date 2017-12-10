@@ -274,8 +274,9 @@ def partial_solve(S, N, M, A, timeout=False):
         for i in range(n):
                 for j in range(m):
                         v = int(A[i][j])
-                        model.addConstr(X[i][j], '<=', v, name='Partial solve')
-                        model.addConstr(X[i][j], '>=', v, name='Partial solve')
+                        if v != -1:
+                                model.addConstr(X[i,j], '<=', v, name='Partial solve')
+                                model.addConstr(X[i,j], '>=', v, name='Partial solve')
         ######################################################
         contrainte(X, Y, Z, N, M, Sligne, Scolonne, model)
         if timeout:
