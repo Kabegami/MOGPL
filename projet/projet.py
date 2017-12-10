@@ -278,10 +278,11 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 #=========================================================================================================
 
 if __name__ == "__main__":
+    #build_plne_images(16,16,dataDir='mixData', dirSave='mixImages', prefix='mix')
     d = dict()
-    d['plne_time'] = load_time(11,15)
-    d['mix_time'] = load_time(11,15,dataDir='mixData')
-    L = load_time(11,15,dataDir='dynamiqueData')
+    d['plne_time'] = load_time(11,15) + ['timeout']
+    d['mix_time'] = load_time(11,16,dataDir='mixData')
+    L = load_time(11,16,dataDir='dynamiqueData')
     for i in range(len(L)):
         d['mix_time'][i] += L[i]
     s = tools.toLatexTab(d,start=11)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 14:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 14:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1911,19 +1911,19 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 \tf@toc=\write6
 \openout6 = `Rapport.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 331.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 331.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 334.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 334.
  (./Rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 331.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 331.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 334.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 334.
 Package rerunfilecheck Info: File `Rapport.out' has not changed.
 (rerunfilecheck)             Checksum: FD93D86DBE0376FE6C414926C1983080;437.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 331.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 334.
  ) 
 Here is how much of TeX's memory you used:
  33577 strings out of 492990
  621999 string characters out of 6138688
- 736955 words of memory out of 5000000
+ 737955 words of memory out of 5000000
  36687 multiletter control sequences out of 15000+600000
  541397 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1942,7 +1942,7 @@ texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/font
 s/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/
 cm-super/sfcc1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc10
 95.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on Rapport.pdf (9 pages, 248528 bytes).
+Output written on Rapport.pdf (9 pages, 248568 bytes).
 PDF statistics:
  167 PDF objects out of 1000 (max. 8388607)
  130 compressed objects within 2 object streams
