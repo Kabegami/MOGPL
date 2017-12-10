@@ -181,7 +181,7 @@ def contrainte(X, Y, Z, N, M, Sligne, Scolonne, model):
                                 #print('i : {}, j : {}'.format(i,j))
                                 CY = [Z[i,j,t]]
                                 coef = [1]
-                                k = i + Scolonne[j][t], N-1
+                                k = i + Scolonne[j][t]
                                 if k < N:                                        
                                         CY.append(X[k,j])
                                         coef.append(1)
@@ -269,7 +269,7 @@ def compute_instance(start=11, end=16,timeout=False):
 		
 def main():
     compute_instance(15,15)
-    #S, N, M = lireFichier('instances/16.txt')
+    #S, N, M = lireFichier('instances/15.txt')
     #L = solve(S,N,M,True)
     #print(L)
 
