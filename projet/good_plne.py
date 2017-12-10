@@ -311,7 +311,7 @@ def compute_mix(start=11, end=16,timeout=False, instanceDir='instances/', objDir
                 partialF = partialDir + 'instance' + str(i)
                 A = load(partialF)
                 L,t = partial_solve(S,N,M,A)
-                save(A, dataName)
+                save(L, dataName)
                 save(t, timeName)
         
 		
