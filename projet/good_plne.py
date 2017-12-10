@@ -316,8 +316,8 @@ def compute_mix(start=11, end=16,timeout=False, instanceDir='instances/', objDir
         
 		
 def main():
-    #compute_instance(11,15)
-    compute_mix(16,16)
+    #compute_instance(0,15)
+    compute_mix(0,10)
     #S, N, M = lireFichier('instances/15.txt')
     #L = solve(S,N,M,True)
     #print(L)
