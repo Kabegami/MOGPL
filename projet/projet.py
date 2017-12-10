@@ -278,11 +278,16 @@ def stat(start=0, end=10, dirname='instances', saveData=False, fichier='data'):
 #=========================================================================================================
 
 if __name__ == "__main__":
+    d = dict()
+    d['plne_time'] = load_time(11,15)
+    d['mix_time'] = load_time(11,15,dataDir='mixData')
+    s = tools.toLatexTab(d,start=11)
+    print(s)
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
     #build_images(15,16)
     #build_plne_images(11,15,dataDir='mixData', dirSave='mixImages', prefix='mix')
-    save_grid(11,16)
+    #save_grid(11,16)
     #L = load_time(0,8)
     #d = {'time': L}
     #s= tools.toLatexTab(d,start=11)
@@ -295,9 +300,9 @@ if __name__ == "__main__":
     #draw(A)
     #dico = stat(0,10,saveData=False)
     #dico = load('data')
-    print('dico : ', dico)
-    L1 = dico['nbCases']
-    L2 = dico['time']
+    #print('dico : ', dico)
+    #L1 = dico['nbCases']
+    #L2 = dico['time']
     #d['dynamique-time'] = L2
 
     #s = tools.toLatexTab(d,start=0)
