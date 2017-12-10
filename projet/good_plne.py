@@ -268,7 +268,7 @@ def compute_instance(start=11, end=16,timeout=False):
         
 		
 def main():
-    compute_instance(0,10)
+    compute_instance(15,15)
     #S, N, M = lireFichier('instances/16.txt')
     #L = solve(S,N,M,True)
     #print(L)
