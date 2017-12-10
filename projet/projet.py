@@ -297,6 +297,9 @@ if __name__ == "__main__":
         d['mix_time'][i] += L[i]
     d['nombre de cases'] = get_nbCases(11,16)
     s = tools.toLatexTab(d,start=11,listKey=['plne_time','mix_time','nombre de cases'])
+    L1 = d['plne_time']
+    L1[-1] = max(d['nombre de cases'])
+    tools.multiple_draw_graphe([L1, d['mix_time']],d['nombre de cases'], L_label=['PLNE','mix_time'])
     print(s)
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
