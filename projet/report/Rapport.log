@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  9 DEC 2017 18:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 11:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1491,6 +1491,46 @@ File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 \c@mdf@zref@counter=\count356
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
+(/usr/share/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+
+Class memoir Warning: You are using the caption package with the memoir class. 
+To prepare we will now reset all captioning macros and configurations to kernel
+ defaults, and then let the caption package take over. Please remember to use
+ the caption package interfaces in order to
+ configure your captions.
+
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen305
+\captionmargin@=\dimen306
+\captionwidth=\dimen307
+\caption@tempdima=\dimen308
+\caption@indent=\dimen309
+\caption@parindent=\dimen310
+\caption@hangindent=\dimen311
+)
+\c@ContinuedFloat=\count357
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+)
+\c@KVtest=\count358
+\sf@farskip=\skip326
+\sf@captopadj=\dimen312
+\sf@capskip=\skip327
+\sf@nearskip=\skip328
+\c@subfigure=\count359
+\c@subfigure@save=\count360
+\c@subtable=\count361
+\c@subtable@save=\count362
+\sf@top=\skip329
+\sf@bottom=\skip330
+)
 (/usr/share/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2017/06/29 3.12 The Babel package
 
@@ -1506,8 +1546,8 @@ File: babel.def 2017/06/29 3.12 Babel common definitions
 (/usr/share/texmf-dist/tex/generic/babel/switch.def
 File: switch.def 2017/06/29 3.12 Babel switching mechanism
 )
-\babel@savecnt=\count357
-\U@D=\dimen305
+\babel@savecnt=\count363
+\U@D=\dimen313
 )
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
@@ -1515,33 +1555,33 @@ File: switch.def 2017/06/29 3.12 Babel switching mechanism
 ))
 (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
-\Gm@cnth=\count358
-\Gm@cntv=\count359
-\c@Gm@tempcnt=\count360
-\Gm@bindingoffset=\dimen306
-\Gm@wd@mp=\dimen307
-\Gm@odd@mp=\dimen308
-\Gm@even@mp=\dimen309
-\Gm@layoutwidth=\dimen310
-\Gm@layoutheight=\dimen311
-\Gm@layouthoffset=\dimen312
-\Gm@layoutvoffset=\dimen313
+\Gm@cnth=\count364
+\Gm@cntv=\count365
+\c@Gm@tempcnt=\count366
+\Gm@bindingoffset=\dimen314
+\Gm@wd@mp=\dimen315
+\Gm@odd@mp=\dimen316
+\Gm@even@mp=\dimen317
+\Gm@layoutwidth=\dimen318
+\Gm@layoutheight=\dimen319
+\Gm@layouthoffset=\dimen320
+\Gm@layoutvoffset=\dimen321
 \Gm@dimlist=\toks49
 )
-\drop=\skip326
+\drop=\skip331
 
 (/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
 s
-\f@nch@headwidth=\skip327
-\f@nch@O@elh=\skip328
-\f@nch@O@erh=\skip329
-\f@nch@O@olh=\skip330
-\f@nch@O@orh=\skip331
-\f@nch@O@elf=\skip332
-\f@nch@O@erf=\skip333
-\f@nch@O@olf=\skip334
-\f@nch@O@orf=\skip335
+\f@nch@headwidth=\skip332
+\f@nch@O@elh=\skip333
+\f@nch@O@erh=\skip334
+\f@nch@O@olh=\skip335
+\f@nch@O@orh=\skip336
+\f@nch@O@elf=\skip337
+\f@nch@O@erf=\skip338
+\f@nch@O@olf=\skip339
+\f@nch@O@orf=\skip340
 ) (./Rapport.aux)
 \openout1 = `Rapport.aux'.
 
@@ -1568,7 +1608,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count361
+\c@section@level=\count367
 )
 Redoing nameref's sectioning
 Redoing nameref's label
@@ -1583,16 +1623,16 @@ LaTeX Info: Redefining \nameref on input line 95.
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count362
-\scratchdimen=\dimen314
+\scratchcounter=\count368
+\scratchdimen=\dimen322
 \scratchbox=\box86
-\nofMPsegments=\count363
-\nofMParguments=\count364
+\nofMPsegments=\count369
+\nofMParguments=\count370
 \everyMPshowfont=\toks50
-\MPscratchCnt=\count365
-\MPscratchDim=\dimen315
-\MPnumerator=\count366
-\makeMPintoPDFobject=\count367
+\MPscratchCnt=\count371
+\MPscratchDim=\dimen323
+\MPnumerator=\count372
+\makeMPintoPDFobject=\count373
 \everyMPtoPDFconversion=\toks51
 ) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1612,7 +1652,10 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\c@lstlisting=\count368
+\c@lstlisting=\count374
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1683,17 +1726,17 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--138
 
  []
 
@@ -1701,44 +1744,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 132--136
 File: ../images/dynamique_instance9.png Graphic file (type png)
 <use ../images/dynamique_instance9.png>
 Package pdftex.def Info: ../images/dynamique_instance9.png  used on input line 
-171. on input line 171.
+173. on input line 173.
 Package pdftex.def Info: Requested size: 320.0935pt x 240.08365pt on input line
- 171.
+ 173.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 185--193
+[3] [4 <../images/dynamique_instance9.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 187--195
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--193
+Underfull \hbox (badness 10000) in paragraph at lines 187--195
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--193
+Underfull \hbox (badness 10000) in paragraph at lines 187--195
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--193
+Underfull \hbox (badness 10000) in paragraph at lines 187--195
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--193
+Underfull \hbox (badness 10000) in paragraph at lines 187--195
 
  []
 
-[4 <../images/dynamique_instance9.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 
  []
 
@@ -1748,50 +1786,133 @@ Underfull \hbox (badness 10000) in paragraph at lines 196--197
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 219--221
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--227
+Underfull \hbox (badness 10000) in paragraph at lines 221--223
 
  []
 
-<../graphes/comparaison.png, id=75, 462.528pt x 346.896pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--229
+
+ []
+
+<../graphes/comparaison.png, id=79, 462.528pt x 346.896pt>
 File: ../graphes/comparaison.png Graphic file (type png)
 <use ../graphes/comparaison.png>
-Package pdftex.def Info: ../graphes/comparaison.png  used on input line 286. on
- input line 286.
+Package pdftex.def Info: ../graphes/comparaison.png  used on input line 288. on
+ input line 288.
 Package pdftex.def Info: Requested size: 320.0935pt x 240.08365pt on input line
- 286.
+ 288.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5] [6 <../graphes/comparaison.png>]
+
+! LaTeX Error: Environment subfigure undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.295   \begin{subfigure}
+                         
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+<../images/dynamique_instance15.png, id=80, 462.528pt x 346.896pt>
+File: ../images/dynamique_instance15.png Graphic file (type png)
+<use ../images/dynamique_instance15.png>
+Package pdftex.def Info: ../images/dynamique_instance15.png  used on input line
+ 296. on input line 296.
+Package pdftex.def Info: Requested size: 426.79135pt x 320.11154pt on input lin
+e 296.
+
+! LaTeX Error: \begin{figure} on input line 293 ended by \end{subfigure}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.299   \end{subfigure}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment subfigure undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.301   \begin{subfigure}
+                         
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+<../images/plne_instance15.png, id=81, 462.528pt x 346.896pt>
+File: ../images/plne_instance15.png Graphic file (type png)
+<use ../images/plne_instance15.png>
+Package pdftex.def Info: ../images/plne_instance15.png  used on input line 302.
+ on input line 302.
+Package pdftex.def Info: Requested size: 426.79135pt x 320.11154pt on input lin
+e 302.
+
+Overfull \hbox (6.66504pt too wide) in paragraph at lines 300--303
+ []   [] 
+ []
+
+
+! LaTeX Error: \begin{figure} on input line 293 ended by \end{subfigure}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.305   \end{subfigure}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+LaTeX Warning: Float too large for page by 10.89276pt on input line 306.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6] [7 <../graphes/comparaison.png>] [8 <../images/dynamique_instance15.png> <.
+./images/plne_instance15.png>]
 \tf@toc=\write6
 \openout6 = `Rapport.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 293.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 293.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 310.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 310.
  (./Rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 293.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 293.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 310.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 310.
 Package rerunfilecheck Info: File `Rapport.out' has not changed.
 (rerunfilecheck)             Checksum: FD93D86DBE0376FE6C414926C1983080;437.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 293.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 310.
  ) 
 Here is how much of TeX's memory you used:
- 32404 strings out of 492990
- 600489 string characters out of 6138688
- 715450 words of memory out of 5000000
- 35533 multiletter control sequences out of 15000+600000
+ 33566 strings out of 492990
+ 621732 string characters out of 6138688
+ 735513 words of memory out of 5000000
+ 36680 multiletter control sequences out of 15000+600000
  541397 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 52i,11n,66p,10415b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 52i,11n,66p,10453b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public
@@ -1806,10 +1927,10 @@ texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/font
 s/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/
 cm-super/sfcc1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc10
 95.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on Rapport.pdf (6 pages, 233647 bytes).
+Output written on Rapport.pdf (8 pages, 247557 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 116 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 162 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
+ 20 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

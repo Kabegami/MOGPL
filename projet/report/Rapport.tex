@@ -19,7 +19,7 @@
 \usetikzlibrary{arrows, automata, positioning}
 \usepackage{lstautogobble}
 \usepackage[framemethod=tikz]{mdframed}
-
+\usepackage[lofdepth,lotdepth]{subfig}
 %%% Used language
 \usepackage[english]{babel}
 
@@ -118,8 +118,7 @@
     \textbf{Question 1:}\\\\ Si l’on a calculé tous les $T(j, l)$, pour savoir si il est possible de colorier la ligne $l_{i}$ entière avec la séquence entière  il suffit de de regarder $T(m-1, k)$, si ce dernier vaut vrai alors il est possible de colorier la ligne entière avec la séquence entière. Si il vaut faux alors ce n'est pas possible.\\\\
     \textbf{Question 2:}
     \begin{itemize}
-    \item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai
-      \label{i1}
+    \item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai       \label{eq:i1}
 		\item Cas $l \geqslant 1$, $j < s_{l}-1$: Faux
 		\item Cas $l \geqslant 1$, $j = s_{l}-1$:
 		\begin{itemize}
@@ -127,7 +126,10 @@
 			\item Si $l \neq 1$ alors Faux
 		\end{itemize}
     \end{itemize}
-    justification : (\ref{i1}) Si il n'y a pas de bloc à poser, alors un coloriage est toujours possible.
+    justification : (\ref{eq:i1}) Si il n'y a pas de bloc à poser, alors un coloriage est toujours possible. \\
+    Si le nombre de cases dont on dispose est inférieur à la taille du bloc, on ne peut pas le poser donc faux. \\
+    Si le bloc fait exactement la taille de nos cases, on regarde si il y a un unique bloc à poser. Si ce n'est pas le cas, on renvoi faux.
+    
  	
  	\textbf{Question 3:}\\\\
  	La relation de récurrence permettant de calculer $T(j,l)$ est la suivante:\\\\
@@ -286,6 +288,21 @@ instances & plne-time & dynamique-time \\
   \includegraphics[width=0.75\linewidth]{../graphes/comparaison.png}
   \caption{Comparaison des deux methodes sur les 8 premières instances}
   \label{fig:graphes-comparaison}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}
+    \includegraphics[width=1\linewidth]{../images/dynamique_instance15.png}
+    \caption{Images de l'instance 15 avec la programmation dynamique}
+    \label{fig:dynamique15}
+  \end{subfigure}
+  ~
+  \begin{subfigure}
+    \includegraphics[width=1\linewidth]{../images/plne_instance15.png}
+    \caption{Image de l'instance 15 avec la plne}
+    \label{fig:plne15}
+  \end{subfigure}
 \end{figure}
 
     

@@ -263,7 +263,7 @@ if __name__ == "__main__":
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
     #build_images(15,16)
-    #build_plne_images(0,8)
+    build_plne_images(15,15)
     L = load_time(0,8)
     #d = {'time': L}
     #s= tools.toLatexTab(d,start=11)
