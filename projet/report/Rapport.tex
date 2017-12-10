@@ -195,11 +195,23 @@
 
 \textbf{Question 9} En appliquant notre programme sur l'instance 11, on observe qu'en dépit de la petite taille de l'instance notre algorithme ne colorie rien. En effet quand une case peut être colorié à la fois en blanc et en noir notre algorithme ne fais rien. Si la couleur d'une case ne peut être déterminée de manière exacte grace aux contraintes elle ne sera pas colorié. Ce qui explique pourquoi notre algorithme ne colorie pas correctement l'instance 11.
 \\
-Une solution à ce problème est d'implémenter un algorithme de backtracking qui une fois la coloration effectuée, observe toutes les cases non coloriées et leur affecte 0 et 1 arbirtrairement puis on relance coloration avec la nouvelle grille. On réitère jusqu'a optenir une grille complète (dans ce cas fin de l'algorithme) ou une grille insolvabe. Si le grille ne peut pas être résoulue , on retourne jusqu'a l'affectation la plus récente et on prend l'autre couleur. On notera que cette algorithme prend beaucoup plus de temps pour résoudre les grilles, une autre approche est d'utiliser la PLNE.
+Une solution à ce problème est d'implémenter un algorithme de backtracking qui une fois la coloration effectuée, observe toutes les cases non coloriées et leur affecte 0 et 1 arbirtrairement puis on relance coloration avec la nouvelle grille.
+\begin{enumerate}
+\item Initialisation : A <- coloration(M) 
+\item Tant que la grille n'est pas complete et que le noeud parent n'a pas testé toutes les couleurs:
+  \begin{enumerate}
+    \item Si coloration(A) != False:\\
+      Alors choisir arbritrairement une case incomplete c et lui attribuer une couleur
+    \item Si coloration(A) == False:\\
+      Alors en retourne à la grille précédente et on attribue l'autre couleur.
+    \item  A <- coloration(A)
+  \end{enumerate}
+\end{enumerate}
+
 
 
  	
- 	\newpage
+ 	%\newpage
  	\section{II. La PLNE à la rescousse}
     \subsection{1 - Modélisation}
     \textbf{Question 10:}\\\\ - $x_{ij}$ vaut 1 si la case (i, j)est coloriée en noir et 0 si coloriée en noir.\\\\
@@ -221,9 +233,9 @@ Une solution à ce problème est d'implémenter un algorithme de backtracking qu
          
         \sum \limits_{{k=i}}^{i+s_{t}-1} x_{kj} \geq z^{t}_{ij} \times s_{t} $ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
         
-        y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
+        y^{t}_{ij} + \sum \limits_{{k=0}}^{j+s_{t}} y^{t+1}_{ik} \leq 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i-1}\rbrace\\\\
         
-        z^{t}_{ij} + \sum \limits_{{k=0}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j}\rbrace\\\\
+        z^{t}_{ij} + \sum \limits_{{k=0}}^{i+s_{t}} z^{t+1}_{kj} \leq 1$ | $\forall j \in \lbrace 0, 1, 2,...,M-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{j-1}\rbrace\\\\
         
         \sum \limits_{{j=0}}^{M-1} y^{t}_{ij} = 1 $ | $\forall i \in \lbrace 0, 1, 2,...,N-1\rbrace, \forall t \in \lbrace 1, 2,...,k_{i}\rbrace\\\\
         
@@ -245,26 +257,6 @@ $$
 (N'oublions pas que j commence à 0 et termine à M-1)\\
 - Pour une ligne $l_{i}$ le $l^{ieme}$ bloc ne peut commencer avant la case  $(i, \sum \limits_{{n=1}}^{l-1} (s_{n}+1))$ , ni commencer après la case $(i, M - s_{l} - \sum \limits_{{n = l+1}}^{k_{i}}(s_{n}+1))$ .
 
-\begin{figure}
-  \begin{center}
-    \begin{tabular}{|c||c|}
-    \hline
-    instances & time\\ 
-    \hline
-    11 & 0.0006639957427978516 \\ 
-    \hline
-    12 & 117.45809602737427 \\ 
-    \hline
-    13 & 1.6546478271484375 \\ 
-    \hline
-    14 & 0.47141194343566895 \\ 
-    \hline
-    15 & 15.691749095916748 \\ 
-    \hline
-    \end{tabular}
-    \caption{Temps PLNE}
-  \end{center}
-\end{figure}
 
 \begin{figure}
   \begin{center}
@@ -324,24 +316,27 @@ instances & plne-time & dynamique-time \\
   \end{subfigure}
 \end{figure}
 
+
+
 \begin{figure}
-\begin{tabular}{|c||c||c|}
+\begin{tabular}{|c||c||c||c|}
 \hline
-instances & plne-time & mix-time \\ 
+instances & plne_time & mix_time & nombre de cases \\ 
 \hline
-11 & 0.000541925430298 & 0.00097918510437 \\ 
+11 & 0.0005419254302978516 & 0.0009791851043701172 & 8 \\ 
 \hline
-12 & 162.90399909 & 1.08105015755 \\ 
+12 & 162.9039990901947 & 1.081050157546997 & 924 \\ 
 \hline
-13 & 2.34310412407 & 1.3090941906 \\ 
+13 & 2.343104124069214 & 1.3090941905975342 & 2025 \\ 
 \hline
-14 & 0.735449075699 & 0.824674129486 \\ 
+14 & 0.7354490756988525 & 0.824674129486084 & 1140 \\ 
 \hline
-15 & 18.1603360176 & 7.86031389236 \\ 
+15 & 18.160336017608643 & 7.860313892364502 & 900 \\ 
 \hline
-16 & timeout & 1650.86029291 \\ 
+16 & timeout & 1650.8602929115295 & 1750 \\ 
 \hline
 \end{tabular}
+
 
 
 \caption{Comparaison des temps entre la plne pure et avec une initialisation avec la programmation dynamique(mix)}

@@ -233,6 +233,16 @@ def robust_time_list(L,start=1,end=16, default='timeout'):
             R.append(default)
     return R
 
+def get_nbCases(start=0, end=16, dirname='instances/'):
+    L = []
+    for i in range(start, end+1):
+        fname = dirname + str(i) + '.txt'
+        lines, col, Mat = read_file(fname)
+        N,M = Mat.shape
+        L.append(N*M)
+    return L
+        
+
 def save_grid(start=0, end=10, dirname='instances/', objDir='dynamiqueData/', name='instance'):
     if not os.path.exists(objDir):
         os.mkdir(objDir)
@@ -285,7 +295,8 @@ if __name__ == "__main__":
     L = load_time(11,16,dataDir='dynamiqueData')
     for i in range(len(L)):
         d['mix_time'][i] += L[i]
-    s = tools.toLatexTab(d,start=11)
+    d['nombre de cases'] = get_nbCases(11,16)
+    s = tools.toLatexTab(d,start=11,listKey=['plne_time','mix_time','nombre de cases'])
     print(s)
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
