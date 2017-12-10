@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 14:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.3)  10 DEC 2017 16:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1745,87 +1745,97 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 122.
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--139
+Underfull \hbox (badness 10000) in paragraph at lines 135--140
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--139
+Underfull \hbox (badness 10000) in paragraph at lines 135--140
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--139
+Underfull \hbox (badness 10000) in paragraph at lines 135--140
 
  []
 
-<../images/dynamique_instance9.png, id=52, 462.528pt x 346.896pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--140
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--147
+
+ []
+
+<../images/dynamique_instance9.png, id=51, 462.528pt x 346.896pt>
 File: ../images/dynamique_instance9.png Graphic file (type png)
 <use ../images/dynamique_instance9.png>
 Package pdftex.def Info: ../images/dynamique_instance9.png  used on input line 
-174. on input line 174.
+191. on input line 191.
 Package pdftex.def Info: Requested size: 320.0935pt x 240.08365pt on input line
- 174.
+ 191.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3] [4 <../images/dynamique_instance9.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 188--196
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 188--196
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 188--196
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 188--196
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 188--196
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--224
+Underfull \hbox (badness 10000) in paragraph at lines 239--241
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--230
+Underfull \hbox (badness 10000) in paragraph at lines 244--247
 
  []
 
 <../graphes/comparaison.png, id=79, 462.528pt x 346.896pt>
 File: ../graphes/comparaison.png Graphic file (type png)
 <use ../graphes/comparaison.png>
-Package pdftex.def Info: ../graphes/comparaison.png  used on input line 289. on
- input line 289.
+Package pdftex.def Info: ../graphes/comparaison.png  used on input line 306. on
+ input line 306.
 Package pdftex.def Info: Requested size: 320.0935pt x 240.08365pt on input line
- 289.
+ 306.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -1836,7 +1846,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.296   \begin{subfigure}
+l.313   \begin{subfigure}
                          
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1846,17 +1856,17 @@ or  <return>  to continue without it.
 File: ../images/dynamique_instance15.png Graphic file (type png)
 <use ../images/dynamique_instance15.png>
 Package pdftex.def Info: ../images/dynamique_instance15.png  used on input line
- 297. on input line 297.
+ 314. on input line 314.
 Package pdftex.def Info: Requested size: 426.79135pt x 320.11154pt on input lin
-e 297.
+e 314.
 
-! LaTeX Error: \begin{figure} on input line 294 ended by \end{subfigure}.
+! LaTeX Error: \begin{figure} on input line 311 ended by \end{subfigure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.300   \end{subfigure}
+l.318   \end{subfigure}
                        
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1869,7 +1879,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.302   \begin{subfigure}
+l.320   \begin{subfigure}
                          
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1878,30 +1888,30 @@ or  <return>  to continue without it.
 <../images/plne_instance15.png, id=81, 462.528pt x 346.896pt>
 File: ../images/plne_instance15.png Graphic file (type png)
 <use ../images/plne_instance15.png>
-Package pdftex.def Info: ../images/plne_instance15.png  used on input line 303.
- on input line 303.
+Package pdftex.def Info: ../images/plne_instance15.png  used on input line 321.
+ on input line 321.
 Package pdftex.def Info: Requested size: 426.79135pt x 320.11154pt on input lin
-e 303.
+e 321.
 
-Overfull \hbox (6.66504pt too wide) in paragraph at lines 301--304
- []   [] 
+Overfull \hbox (14.44095pt too wide) in paragraph at lines 316--322
+ []    [] 
  []
 
 
-! LaTeX Error: \begin{figure} on input line 294 ended by \end{subfigure}.
+! LaTeX Error: \begin{figure} on input line 311 ended by \end{subfigure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.306   \end{subfigure}
+l.324   \end{subfigure}
                        
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-LaTeX Warning: Float too large for page by 10.89276pt on input line 307.
+LaTeX Warning: Float too large for page by 21.2367pt on input line 325.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1911,20 +1921,20 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 \tf@toc=\write6
 \openout6 = `Rapport.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 334.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 334.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 352.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 352.
  (./Rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 334.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 334.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 352.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 352.
 Package rerunfilecheck Info: File `Rapport.out' has not changed.
 (rerunfilecheck)             Checksum: FD93D86DBE0376FE6C414926C1983080;437.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 334.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 352.
  ) 
 Here is how much of TeX's memory you used:
  33577 strings out of 492990
- 621999 string characters out of 6138688
- 737955 words of memory out of 5000000
- 36687 multiletter control sequences out of 15000+600000
+ 622008 string characters out of 6138688
+ 737875 words of memory out of 5000000
+ 36686 multiletter control sequences out of 15000+600000
  541397 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  52i,11n,66p,10453b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1942,10 +1952,10 @@ texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/font
 s/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/
 cm-super/sfcc1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc10
 95.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on Rapport.pdf (9 pages, 248568 bytes).
+Output written on Rapport.pdf (9 pages, 250058 bytes).
 PDF statistics:
  167 PDF objects out of 1000 (max. 8388607)
  130 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
+ 23 named destinations out of 1000 (max. 500000)
  81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -119,54 +119,71 @@
     \textbf{Question 1:}\\\\ Si l’on a calculé tous les $T(j, l)$, pour savoir si il est possible de colorier la ligne $l_{i}$ entière avec la séquence entière  il suffit de de regarder $T(m-1, k)$, si ce dernier vaut vrai alors il est possible de colorier la ligne entière avec la séquence entière. Si il vaut faux alors ce n'est pas possible.\\\\
     \textbf{Question 2:}
     \begin{itemize}
-    \item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai       \label{eq:i1}
-		\item Cas $l \geqslant 1$, $j < s_{l}-1$: Faux
-		\item Cas $l \geqslant 1$, $j = s_{l}-1$:
+    \item Cas $l = 0$, $j\in{\left\lbrace 0,...,m-1 \right\rbrace }$: Vrai \\
+          justification : Si il n'y a pas de bloc à poser, alors un coloriage est toujours possible.
+    \item Cas $l \geqslant 1$, $j < s_{l}-1$: Faux \\
+          justification : Si le nombre de cases dont on dispose est inférieur à la taille du bloc, on ne peut pas le poser donc faux. 
+	\item Cas $l \geqslant 1$, $j = s_{l}-1$:
+
 		\begin{itemize}
 			\item Si $l = 1$ alors Vrai 
 			\item Si $l \neq 1$ alors Faux
 		\end{itemize}
+                justification : Si le bloc fait exactement la taille de nos cases, on regarde si il y a un unique bloc à poser. Si ce n'est pas le cas, on renvoi faux.
     \end{itemize}
-    justification : (\ref{eq:i1}) Si il n'y a pas de bloc à poser, alors un coloriage est toujours possible. \\
-    Si le nombre de cases dont on dispose est inférieur à la taille du bloc, on ne peut pas le poser donc faux. \\
-    Si le bloc fait exactement la taille de nos cases, on regarde si il y a un unique bloc à poser. Si ce n'est pas le cas, on renvoi faux.
-    
  	
  	\textbf{Question 3:}\\\\
  	La relation de récurrence permettant de calculer $T(j,l)$ est la suivante:\\\\
- 	$T(j, l) = T(j-(s_{l}+1),l-1)$\\\\
- 	En effet si l'on se trouve à la case j et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les coloration de $s_{l-1} et s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$
-   
+ 	$T(j, l) = T(j-(s_{l}+1),l-1) \vee T(j-1,l)$\\\\
+ 	En effet si l'on se trouve à la case j qui est noir, et que l'on veut savoir si il est possible de colorier la sous séquence $(s_{1}, ..., s_{l})$ il faut pouvoir colorier $s_{l}$ case(s) et laisser une case de séparation entre les coloration de $s_{l-1} et s_{l}$, il faut donc regarder si l'on peut colorier la ligne de la case 0 à $j - s_{l} - 1$ avec la sous séquence $(s_{1}, ..., s_{l-1})$. \\
+        En revanche si la case j est blanche, il n'est pas possible de placer le bloc par consequent on regarde si il est possible de placer la sequences sur les bloc précédents, ce qui s'exprimer par la formule : $T(j-1,l)$ \\
 
+
+        \textbf{Question 4:}\\\\
+        1) Dans le cas, ou l'on a pas de bloc, il faut vérifier qu'aucune case n'est coloriées.\\
+        2.a) Si il n'y a pas la place pour mettre un bloc, c'est toujours faux peu importe la ligne \\
+        2.b) Si $j = sl-1$ alors il faut vérifier que l'on peut poser le bloc, c'est à dire il n'y a pas de cases noires sur les cases considérées. \\
+        2.c) \begin{itemize}
+        \item Si la première case est blanche, on ne peut pas poser le bloc par conséquent on regarde $T(j-1,l)$
+        \item Si la case j est noire, on regarde si on peut placer le bloc de manière correcte, c'est à dire pas de blanc sur l'emplacement et un blanc apres et avant pour s'assurer que les blocs son bien séparés.
+        \item Si la case n'est pas encore colorié, on traite les deux cas de figures précédent et il suffit qu'un seul soit vrai pour que l'on considère $T(j,l)$ vrai.
+          \end{itemize}
+        
         
 
-\begin{tabular}{|c||c||c|}
-\hline
-instances & nbCases & time \\ 
-\hline
-0 & 20 & 0.00042200088501 \\ 
-\hline
-1 & 25 & 0.000617027282715 \\ 
-\hline
-2 & 400 & 0.117752075195 \\ 
-\hline
-3 & 481 & 0.0961720943451 \\ 
-\hline
-4 & 625 & 0.182909011841 \\ 
-\hline
-5 & 675 & 0.199213027954 \\ 
-\hline
-6 & 900 & 0.51091504097 \\ 
-\hline
-7 & 1054 & 0.300116062164 \\ 
-\hline
-8 & 1400 & 0.43498301506 \\ 
-\hline
-9 & 2500 & 5.42304491997 \\ 
-\hline
-10 & 9801 & 8.71296691895 \\ 
-\hline
-\end{tabular}
+        
+        \begin{figure}
+          \begin{center}
+            \begin{tabular}{|c||c||c|}
+              \hline
+              instances & nbCases & time \\ 
+              \hline
+              0 & 20 & 0.00042200088501 \\ 
+              \hline
+              1 & 25 & 0.000617027282715 \\ 
+              \hline
+              2 & 400 & 0.117752075195 \\ 
+              \hline
+              3 & 481 & 0.0961720943451 \\ 
+              \hline
+              4 & 625 & 0.182909011841 \\ 
+              \hline
+              5 & 675 & 0.199213027954 \\ 
+              \hline
+              6 & 900 & 0.51091504097 \\ 
+              \hline
+              7 & 1054 & 0.300116062164 \\ 
+              \hline
+              8 & 1400 & 0.43498301506 \\ 
+              \hline
+              9 & 2500 & 5.42304491997 \\ 
+              \hline
+              10 & 9801 & 8.71296691895 \\ 
+              \hline
+            \end{tabular}
+            \caption{Tableau représentant les résulats de la programmation dynamique}
+          \end{center}
+          \end{figure}
 
 
 \begin{figure}[h]
@@ -296,6 +313,7 @@ instances & plne-time & dynamique-time \\
   \begin{subfigure}
     \includegraphics[width=1\linewidth]{../images/dynamique_instance15.png}
     \caption{Images de l'instance 15 avec la programmation dynamique}
+    le gris correspond aux cases blanches, le noir aux cases noires et le blanc aux cases non déterminées.
     \label{fig:dynamique15}
   \end{subfigure}
   ~
