@@ -239,9 +239,11 @@ def save_grid(start=0, end=10, dirname='instances/', objDir='dynamiqueData/', na
     for i in range(start, end+1):
         fname = dirname + str(i)+'.txt'
         lines, col, Mat = read_file(fname)
-        A = coloration(Mat, lines, col)
+        A,t  = timeIt(coloration,Mat, lines, col)
         saveFname = objDir + name + str(i)
+        timeName = objDir + 'time' + str(i)
         save(A, saveFname)
+        save(t, timeName)
     print('Sauvegarde des grilles effectué avec succès !')
         
     
@@ -279,8 +281,8 @@ if __name__ == "__main__":
     #lines, col ,Mat = read_file('instances/8.txt')
     #print('lines', lines)
     #build_images(15,16)
-    build_plne_images(11,15,dataDir='mixData', dirSave='mixImages', prefix='mix')
-    #save_grid(11,16)
+    #build_plne_images(11,15,dataDir='mixData', dirSave='mixImages', prefix='mix')
+    save_grid(11,16)
     #L = load_time(0,8)
     #d = {'time': L}
     #s= tools.toLatexTab(d,start=11)
